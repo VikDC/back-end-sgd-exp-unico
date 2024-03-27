@@ -1,0 +1,301 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center" class="volver">
+        <button class="botonVolver-asistencia" (click)="salir()" fxLayoutAlign="start center">
+            <span class="material-icons">chevron_left</span><span class="text-linea">Volver a la Asistencia Personal</span>
+        </button>
+    </div>
+    <div fxLayout="row" class="cabeceraTitulo" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+        <span class="subtitulo-nombre" fxFlex>{{ empleado.apellidoPaterno }} {{ empleado.apellidoMaterno }} {{ empleado.nombres }}
+            <a [ngClass]="{'tipo1': empleado.tipoContrato === 'CAP', 'tipo2': empleado.tipoContrato === 'CAS'} " style=" font-size: 12px; font-weight: bold; padding-left: 10px;">{{empleado.tipoContrato }}</a>
+        </span>
+        <!-- <div fxLayoutAlign="space-between center" fxLayout.lt-sm="column" fxLayoutGap="10px">
+            <div fxFlex class="legenda" fxLayout="row" fxLayoutAlign="end center">
+                <span class="legendNOjustificada">Incidencia NO Justificada</span>
+            </div>
+        </div> -->
+    </div>
+    <mat-divider class="divide-header"></mat-divider>
+    <div fxFlex fxLayout="row" fxLayout.xs="column"  fxLayout.sm="row" fxFlexFill style="padding: 0 2vh;" fxLayoutGap="15px">
+        <div fxLayout="column" fxFlex="30"  style="padding: 0 0 5vh 0;">
+
+            <mat-card fxLayout="column" fxLayoutAlign="start stretch" style="border-radius: 21px; box-shadow: none; background-color: #ececec;">
+                <div fxFlex="80" class="contentImg_2" fxLayoutAlign="center center" style="width: 100%; padding: 5px 0;">
+                    <img class="imgPersonaDetalle" [ngClass]="{'marco1': empleado.tipoContrato === 'CAP', 'marco2': empleado.tipoContrato === 'CAS'} " mat-card-sm-image [src]="imageSrc" />
+                </div>
+                <div fxFlex class="contentLetra_2" fxLayout="column" fxLayoutAlign="space-around stretch" style="width: 54%; margin: 0 auto;">
+                    <div fxFlex="33" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{'estado1': empleado.estado == 1, 'estado2': empleado.estado == 0}">PERSONAL {{empleado.estado== 1?'HABILITADO':'INHABILITADO'}}</div>
+                    <div fxFlex="33" fxLayout="row" fxLayoutAlign="space-between center" style="font-weight: bold;" *ngIf="empleado.gerencia.siglas != null">
+                        <div>GERENCIA:</div> <div> {{empleado.gerencia.siglas }}</div>
+                    </div>
+                    <div fxFlex="33" fxLayout="row" fxLayoutAlign="space-between center" style="font-weight: bold;" *ngIf="empleado.tipoContrato != null">
+                        <div>TIPO DE RÉGIMEN:</div> <div>{{empleado.tipoContrato }}</div> 
+                    </div>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutAlign="center center" style="text-align: center;" *ngIf="empleado.cargo.nombre != null">
+                    {{empleado.cargo.nombre}}
+                </div>
+                <div class="hr-lateral"></div>
+                <div class="contentDatos">
+                    <span style="color: #3b3265; font-weight: bold;">Datos</span>
+                </div>
+                <div class="contentDatos" fxFlex fxLayout="column">
+                    <div class="contentDatosDetalle_2" fxLayout="column">
+                     <!--    <div fxFlex>
+                            <span fxFlex="80" class="contentDetTitu">Faltas Justificadas:</span>
+                            <span fxFlex="20" class="contentDetTitu"> {{ faltasJustificadas }}</span>
+                           
+                        </div>
+                        <div fxFlex>
+                            <span fxFlex="80" class="contentDetTitu">Faltas No Justificadas:</span>
+                            <span fxFlex="20" class="contentDetTitu"> {{ faltasNoJustificadas }}</span>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="contentDatos" fxFlex fxLayout="column">
+                    <div class="contentDatosDetalle_2" fxLayout="column">
+                        <div fxFlex *ngIf="empleado.tipoContrato == 'CAP'">
+                            <span fxFlex="85" class="contentDetTitu">Faltas por Tardanza:</span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ faltasPorTardanza }}</span>
+                        </div>
+                        <div fxFlex >
+                            <span fxFlex="85" class="contentDetTitu">Salidas Anticipadas:</span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ salidasAnticipadas }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contentDatos" fxFlex>
+                    <div class="contentDatosDetalle_2">
+                        <div fxFlex  >
+                            <span fxFlex="85" class="contentDetTitu">Sobretiempo: </span> <!-- *ngIf="empleado.tipoContrato == 'CAS'"sobretiempox2-->
+                            <span fxFlex="15" class="contentDetTitu"> {{ minutosExtraFinalMensual   }} hrs</span> <!--sobretiempo-->
+                        </div>
+                        <div fxFlex>
+                            <span fxFlex="85" class=" contentDetTitu">Total de Minutos de tardanzas:</span>
+                            <span fxFlex="15" class=" contentDetTitu"> {{ totalMinutosTardanza }}</span>
+                        </div>
+                        <mat-divider style="color: #a79ed1; margin-left: 27px; width: 85%;"></mat-divider>
+                    </div>
+                </div>
+                <div class="contentDatos" fxFlex fxLayout="column" >
+                    <div class="contentDatosDetalle_2">
+                        <div fxFlex>
+                            <span fxFlex="85" class="contentDetTitu">Total de Solicitudes Registradas en el Mes: </span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ totalSolicitudes }}</span>
+                        </div>
+                    </div>
+                    <mat-divider style="color:#a79ed1; margin-left: 27px; width: 85%;"></mat-divider>
+                </div>
+                <div class="contentDatos" fxFlex>
+                    <div class="contentDatosDetalle_2">
+                        <div fxFlex>
+                            <span fxFlex="85" class=" contentDetTitu" style="font-weight: bold;">Permisos:</span>
+                            <span fxFlex="15" class=" contentDetTitu" style="font-weight: bold;"> {{totalDiasPermiso }} día(s)</span>
+                        </div>
+                        <div  class="contenedor">
+                            <div *ngFor="let permiso of listaPermiso" [matTooltip]="permiso.horario">
+                                <span fxFlex="85" class="contentDetTituSub" style="padding-left: 10px;">{{permiso.fechaInicio|date:'dd/MM/yyyy'}}
+                    al {{permiso.fechaFin|date:'dd/MM/yyyy'}}-{{permiso.nombreCortoSolicitud}}</span>
+                                <span fxFlex="15" class="contentDetTituSub">{{permiso.nroDias}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <br> <!-- *ngIf="empleado.tipoContrato == 'CAP'"  -->
+            <button fxLayout="row" fxLayoutAlign="center center" class="botonPrincipal" 
+            (click)="btnRegistrarNuevaSolicitud()" 
+            *ngIf="this.usuario.isAdmin == 1 && seMuestraBotonNuevaSolicitud && this.empleado.estado == 1">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <mat-icon class="iconoBotonNuevo">add_circle_outline</mat-icon>
+                    <span style="padding-top: 5px;">NUEVA SOLICITUD</span>
+                </div>
+            </button>
+        </div>
+        <div fxLayout="row"  fxFlex="70"  class="cardMedio">
+            <div class="content-anual" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <button mat-icon-button class="icono-color-anual" (click)="seleccionarAnio(-1)">
+                        <span class="material-icons">keyboard_arrow_left</span>
+                    </button>
+                </div>
+                <div class="text-ano">
+                    {{anioFiltro.valorActual}}
+                </div>
+                <div>
+                    <button mat-icon-button class="icono-color-anual" (click)="seleccionarAnio(1)" [disabled]="anioFiltro.valorActual==maxStrAnio">
+                        <span class="material-icons">keyboard_arrow_right</span>
+                    </button>
+                </div>
+            </div>
+            <div fxFlex fxLayout="column" style="padding: 15px;">
+               <!--  <mat-accordion>
+                    <mat-expansion-panel class="acordionAnioContent" >
+                        <mat-expansion-panel-header class="acordionAnio">
+                            <span style="position: relative;">DICIEMBRE</span>
+                        </mat-expansion-panel-header>
+
+                        <div class="acordioMes" *ngFor="let mes of months">
+                            <span style="cursor: pointer;" (click)="filterMesClic(mes.id)">{{mes.descripcion}}</span>
+                            <span style="cursor: pointer;" (click)="filterMesClic(mes.id)">{{ mes.descripcion }}</span>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion> -->
+                <div class="content-anual_2" fxLayout="row" fxLayoutAlign="space-between center"  >
+                    <div>
+                        <button mat-icon-button class="icono-color-anual_2" (click)="seleccionarMes(-1)">
+                            <span class="material-icons">keyboard_arrow_left</span>
+                        </button>
+                    </div>
+                    <div class="text-ano_2">
+                        {{mesFiltro.valorActual}}
+                    </div>
+                    <div>
+                        <button mat-icon-button class="icono-color-anual_2" (click)="seleccionarMes(1)">
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div style="
+            font-size: 18px;
+            color: #4f4881;
+            font-weight: 600;">
+                <span>{{ mesActual }}</span>
+            </div> -->
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px" style="margin-bottom: 10px;">
+                <button class="boton-excel" (click)="exportExcel()" fxLayout="row" fxLayoutAlign="space-around center">
+                <span style="margin-left: 25px;">EXCEL</span>
+                </button>
+            </div>
+            <mat-grid-list cols="7" rowHeight="04:1">
+                <mat-grid-tile *ngFor="let cabecera of cabeceras" class="cabecera" [ngClass] = "{cabeceraSD:cabecera == 'SÁBADO'||cabecera == 'DOMINGO'}">{{ cabecera }}
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="7" rowHeight="01.0:1">
+                <!--      <mat-grid-tile *ngFor="let dia of dias">-->
+                <!-- primer-->
+                <mat-grid-tile *ngFor="let asis of asistencias">
+                    <div class="contentDias" (click)="verJustificacion(asis)" fxFlex fxLayout="column"
+                                [ngClass]="{
+                            'diaFinSemana': asis.estadoDia === 1,
+                            'diaLaborable': asis.estadoDia == 2,
+                            'sinCalendario': asis.estadoDia == 0,
+                            'diaLaborableSinAsistencia':asis.estadoDia==3,
+                            'diaConVacaciones': asis.estadoDia == 4,
+                            'sinPuntero':!asis.seleccionable,
+                            'conPuntero':asis.seleccionable,
+                            'diaPermiso':asis.listaSolicitud.length >0
+                        }"> <!-- *ngIf="(asis.listaIncidente.length + asis.listaSolicitud.length) >= 0" -->
+                        <div class="cabezeraDias" fxFlex="8">
+                            <span class="avisoRechazo" *ngIf="asis.tieneRechazado && asis.listaIncidente.length==0"><mat-icon>error</mat-icon></span>
+                            <span class="text-hora-calen" style="margin-top: 15px;" *ngIf="asis.horaIngres !== null && asis.estadoDia > 0">INGRESO :<span> {{ asis.horaIngresoActualizado }}</span></span>
+                            <span class="text-hora-calen" *ngIf="asis.horaFin !== null && asis.estadoDia > 0">SALIDA :<span> {{ asis.horaSalidaActualizado }}</span></span>
+                            <span class="text-hora-calen" *ngIf="asis.minutosTarde !== null && asis.minutosTarde  > 0 && asis.estadoDia > 0 && asis.estadoTardanza ==1">TARDANZA :<span> {{ asis.minutosTarde }}</span></span>
+                            <span class="text-hora-calen" *ngIf="empleado.tipoContrato == 'CAP' && asis.minutosExtra > 2 && asis.estadoDia > 0">RACIONAMIENTO </span>
+                            <span class="text-hora-calen" *ngIf="(empleado.tipoContrato == 'CAS' || empleado.tipoContrato == 'CAP' ) && asis.minutosExtraString && !asis.noLaboral">SOBRETIEMPO: 
+                                <span *ngIf="(empleado.tipoContrato == 'CAS' || empleado.tipoContrato == 'CAP') && asis.minutosExtraString && !asis.noLaboral">{{(asis.minutosExtraString)}}H</span>
+                            </span>
+                        </div>
+                        <div fxFlex="120" class="textDiaPrinOne" >{{ asis.diaMes }}</div>
+                            
+                        <div *ngFor="let incidente of asis.listaIncidente"><!-- avisoDias -->
+                            <div *ngIf = "incidente.tipoIncidente.nombre !== 'TARDANZA' && incidente.estado != 3 && incidente.idSolicitud==null" class="detalleListInci" [ngClass]="{
+                                    incidente: incidente.estado === 0,
+                                    incidenteEnviado: incidente.estado === 1,
+                                    incidenteAprobado: incidente.estado == 2,
+                                    incidenteValidado: incidente.estado == 3,
+                                    incidenteRechazado: incidente.estado == 4
+                                }">
+                                <p [matTooltip]="incidente.justificacion" CLASS="letraAviso" >{{ acortarNomIncidente(incidente.tipoIncidente.nombre, incidente.justificacion) }}</p>
+                            </div>
+                            <!--div *ngIf = "incidente.tipoIncidente.nombre !== 'TARDANZA' && incidente.estado != 3 && incidente.idSolicitud==null "  class="detalleListInci" [ngClass]="{
+                                incidente: incidente.estado === 0,
+                                incidenteEnviado: incidente.estado == 1,
+                                incidenteAprobado: incidente.estado == 2,
+                                incidenteValidado: incidente.estado == 3,
+                                incidenteRechazado: incidente.estado == 4
+                                }">
+                                <p [matTooltip]="incidente.justificacion" CLASS="letraAviso" >{{ acortarNomIncidente(incidente.tipoIncidente.nombre, incidente.justificacion) }}</p>
+                            </div-->
+                        </div>
+
+                        <div *ngFor="let solicitud of asis.listaSolicitud"><!-- avisoDias -->
+                            <div *ngIf = "!(solicitud.nombreSolicitud == 'DUELO' &&  asis.estadoDia==1)" class="detalleListInci" [ngClass]="{
+                                    incidente: solicitud.estado === 0,
+                                    incidenteEnviado: solicitud.estado === 1,
+                                    incidenteAprobado: solicitud.estado == 2,
+                                    incidenteValidado: solicitud.estado == 3,
+                                    incidenteRechazado: solicitud.estado == 4
+                                    }">
+                                <p CLASS="letraAviso" [matTooltip]="solicitud.nombreSolicitud">{{ acortarNomSolicitud(solicitud.nombreSolicitud) }}</p>
+                            </div>
+                            <!--div *ngIf = "!(solicitud.nombreSolicitud == 'DUELO' &&  asis.estadoDia==1)" class="detalleListInci" [ngClass]="{
+                                incidente: solicitud.estado === 0,
+                                incidenteEnviado: solicitud.estado == 1,
+                                incidenteAprobado: solicitud.estado == 2,
+                                incidenteValidado: solicitud.estado == 3,
+                                incidenteRechazado: solicitud.estado == 4
+                                }">
+                                <p CLASS="letraAviso" [matTooltip]="solicitud.nombreSolicitud">{{ acortarNomSolicitud(solicitud.nombreSolicitud) }}</p>
+                            </div-->
+                        </div>
+                    </div>
+
+                    <!--div class="contentDias" (click)="verJustificacion(asis)" fxFlex fxLayout="column" [ngClass]="{
+                        'diaFinSemana': asis.estadoDia == 1,
+                        'diaLaborable': asis.estadoDia == 2,
+                        'sinCalendario': asis.estadoDia == 0,
+                        'diaLaborableSinAsistencia':asis.estadoDia==3,
+                        'diaConVacaciones': asis.estadoDia == 4,
+                        'sinPuntero':!asis.seleccionable,
+                        'conPuntero':asis.seleccionable,
+                        'diaPermiso':asis.listaSolicitud.length >0
+                        }" *ngIf="(asis.listaIncidente.length + asis.listaSolicitud.length) > 1">
+                        <div *ngFor="let solicitudes of asis.listaSolicitud.slice(0, 1);" class="cabezeraDias" fxFlex="30" fxLayout="row">
+                            <div fxFlex="60" fxLayout="column">
+                                <span class="avisoRechazo" *ngIf="asis.tieneRechazado && asis.listaIncidente.length==0"><mat-icon>error</mat-icon></span>
+                                <span class="text-hora-calen" style="margin-top: 15px;" *ngIf="asis.estadoDia > 0">
+                                    INGRESO :<span *ngIf="solicitudes.idTipoSolicitud != 7 && solicitudes.idTipoSolicitud != 21"> {{ asis.horaIngresoActualizado == '' ? solicitudes.horaInicio : asis.horaIngresoActualizado }}</span></span>
+                                <span class="text-hora-calen" *ngIf="asis.horaFin !== null && asis.estadoDia > 0">
+                                    SALIDA :<span *ngIf="solicitudes.idTipoSolicitud != 7 && solicitudes.idTipoSolicitud != 21"> {{ asis.horaSalidaActualizado == '' ? solicitudes.horaFin : asis.horaSalidaActualizado }}</span></span>
+                                <span class="text-hora-calen" *ngIf="asis.minutosTarde !== null && asis.minutosTarde  > 0 && asis.estadoDia > 0">TARDANZA :<span> {{ asis.minutosTarde }}</span></span>
+                                <span class="text-hora-calen" *ngIf="(empleado.tipoContrato == 'CAS' || empleado.tipoContrato == 'CAP') && asis.minutosExtraString">
+                                    SOBRETIEMPO: <span *ngIf="(empleado.tipoContrato == 'CAS' || empleado.tipoContrato == 'CAP') && asis.minutosExtraString">{{ asis.minutosExtraString }}H</span></span>
+                                <span class="text-hora-calen" *ngIf="asis.horaCompensacion !== null && asis.horaCompensacion  > 0">DC :<span> {{ asis.horaCompensacion}} H</span></span>
+                            </div>
+                        </div>
+                        <div fxFlex="120" class="textDiaPrinOne">{{ asis.diaMes }}</div>
+                        <div fxFlex="70">
+                            <ul class="contentListInci">
+                                <div  *ngFor="let incidente of asis.listaIncidente" >
+                                    <div *ngIf = "incidente.tipoIncidente.nombre !== 'TARDANZA' && incidente.estado != 3 && incidente.idSolicitud==null "  class="detalleListInci" [ngClass]="{
+                                        incidente: incidente.estado === 0,
+                                        incidenteEnviado: incidente.estado == 1,
+                                        incidenteAprobado: incidente.estado == 2,
+                                        incidenteValidado: incidente.estado == 3,
+                                        incidenteRechazado: incidente.estado == 4
+                                        }">
+                                        <p [matTooltip]="incidente.justificacion" CLASS="letraAviso" >{{ acortarNomIncidente(incidente.tipoIncidente.nombre, incidente.justificacion) }}</p>
+                                    </div>
+                                </div>
+                                <div  *ngFor="let solicitud of asis.listaSolicitud" >
+                                    <div *ngIf = "!(solicitud.nombreSolicitud == 'DUELO' &&  asis.estadoDia==1)" class="detalleListInci" [ngClass]="{
+                                        incidente: solicitud.estado === 0,
+                                        incidenteEnviado: solicitud.estado == 1,
+                                        incidenteAprobado: solicitud.estado == 2,
+                                        incidenteValidado: solicitud.estado == 3,
+                                        incidenteRechazado: solicitud.estado == 4
+                                        }">
+                                        <p CLASS="letraAviso" [matTooltip]="solicitud.nombreSolicitud">{{ acortarNomSolicitud(solicitud.nombreSolicitud) }}</p>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div-->
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </div>
+</div>

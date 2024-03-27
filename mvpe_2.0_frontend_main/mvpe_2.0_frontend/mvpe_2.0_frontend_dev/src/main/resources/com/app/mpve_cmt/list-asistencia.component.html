@@ -1,0 +1,202 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center" class="volver">
+        <button class="botonVolver" routerLink="/" fxLayoutAlign="start center">
+            <span class="material-icons">chevron_left</span><span class="text-linea">Volver</span>
+        </button>
+    </div>
+    <div fxLayout="row" class="cabeceraTitulo" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+        <span class="subtitulo-nombre" fxFlex>Asistencia Personal</span>
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+            <mat-form-field fxFlex style=" width: 20vw; margin-left:1rem; ">
+                <mat-label>BUSCAR POR NOMBRES / APELLIDOS O DNI</mat-label>
+                <!--<input #filter1 ngModel matInput placeholder="Buscar..." (keyup)="applyFilter($event)" (keypress)="validarAlfanumerico($event)" style="text-transform: uppercase;" />-->
+                <input
+                #filter1
+                [(ngModel)]="queryFilter"
+                matInput
+                placeholder="Buscar..."
+                (keyup)="applyFilter($event)"
+                (keypress)="validarAlfanumerico($event)"
+                style="text-transform: uppercase;" />
+                <mat-icon class="color-icon-buscar" matSuffix>search</mat-icon>
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+                <span class="text-vista">Vistas:</span>
+                <button class="cuadro icon icon-bike" mat-icon-button color="primary" (click)="cambiarVista(0)">
+
+                </button>
+                <button class="linea icon icon-bell" mat-icon-button color="primary" (click)="cambiarVista(1)">
+
+                </button>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" style="padding: 0 25px;">
+        <div fxLayout="row wrap" fxLayoutGap="20px">
+          <mat-form-field fxFlex *ngIf="isAdmin">
+                <mat-label>ESTADO</mat-label>
+                <mat-select [(ngModel)]="empleado.estado" (selectionChange)="changeEstado()">
+                    <mat-option [value]="0">INHABILITADO</mat-option>
+                    <mat-option [value]="1">HABILITADO</mat-option>
+                 </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex *ngIf="verTipoRegimen">
+                <mat-label>TIPO DE RÉGIMEN</mat-label>
+                <mat-select [(ngModel)]="regimen" (selectionChange)="changeRegimen()">
+                    <mat-option [value]="0">TODOS</mat-option>
+                    <mat-option *ngFor="let tr of tiposRegimen" [value]="tr">
+                        {{tr.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex *ngIf="isAdmin || nivelAprobacion!=0">
+                <mat-label>SEDE</mat-label>
+                <mat-select [(ngModel)]="sede" (selectionChange)="changeSede()">
+                    <mat-option [value]="0">TODOS</mat-option>
+                    <mat-option *ngFor="let sede of sedes" [value]="sede">{{ sede.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex *ngIf="isAdmin && verGerencia">
+                <mat-label>GERENCIA</mat-label>
+                <mat-select [(ngModel)]="gerencia" (selectionChange)="changeGerencia()">
+                    <mat-option [value]="0">TODOS</mat-option>
+                    <mat-option *ngFor="let gerencia of gerencias" [value]="gerencia">{{ gerencia.siglas }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex *ngIf="verSubGerencia">
+                <mat-label>SUBGERENCIA</mat-label>
+                <mat-select [(ngModel)]="subGerencia" (selectionChange)="changeSubGerencia()">
+                    <mat-option [value]="0">TODOS</mat-option>
+                    <mat-option *ngFor="let subgerencia of subGerencias" [value]="subgerencia">{{ subgerencia.siglas }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div fxLayoutGap="10px" fxFlex.xs="100" fxLayout.xs="column" fxLayoutAlign="space-between center" *ngIf="isAdmin || nivelAprobacion!=0">
+                <button mat-mini-fab color="primary" (click)="deleteFilterSede()" matTooltip="QUITAR FILTRO">
+                    <img style="height:22px;" src="assets/img/icon/filter_cerrar.svg">
+                </button>
+                <button mat-mini-fab color="primary" (click)="applyFilterSedeGerenciaSubGerencia()" [disabled]="muestraFiltro" matTooltip="FILTRAR">
+                    <mat-icon>filter_list</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--<div style="padding: 0 25px;" fxLayout="row" fxLayoutAlign="end center">
+        <mat-form-field fxFlex="20" fxFlex.xs="100">
+            <mat-label>BUSCAR POR NOMBRE O DNI</mat-label>
+            <input #filter ngModel matInput placeholder="Buscar..." (keyup)="applyFilter($event)" (keypress)="validarAlfanumerico($event)" style="text-transform: uppercase;" />
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>-->
+
+    <div *ngIf="isAdmin || nivelAprobacion==1" style="align-items: center;padding-left: 30px;font-size: 20px; font-weight: 500;color: #443b6f;" fxLayout="row" fxLayoutAlign="space-between center">
+        <span fxFlex>{{ filtro }}</span>
+    </div>
+
+    <div class="mensajeFiltro" *ngIf="!tieneResultado" fxLayout="row" fxLayoutAlign="space-between center">
+        <span fxFlex style="text-align: center; color:#FF6347; font-weight: bold; font-size: 1.4em;">{{ mensaje }}</span>
+    </div>
+
+    <mat-divider class="divide-header"></mat-divider>
+
+    <div class="load" *ngIf="loading" style="margin:0 auto;" mode="indeterminate">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && vista == 0" class="content-card contenedor marginBottom-15" fxLayout="row wrap" fxLayoutAlign="stretch start" fxLayoutAlign.xs="start stretch" fxLayout.xs="column">
+        <div fxFlex="25" fxFlex.xs="100" *ngFor="let empleado of empleados | paginate: { itemsPerPage: 16, currentPage: page, totalItems: total }" >
+            <mat-card class="content_asistencia" [ngClass]="{ desactivo: empleado.estado == 0 }" [routerLink]="['/asistencias/asistencia', empleado.idEmpleado]">
+                <!-- <div fxLayout="row" fxLayoutAlign="end center">
+                    <button class="button_calend" mat-mini-fab [routerLink]="['/asistencias/asistencia', empleado.idEmpleado]">
+                        <mat-icon class="icono_editar">today</mat-icon>
+                    </button>
+                </div> -->
+                <mat-card-content fxLayout="row" fxLayoutAlign="space-around center" fxLayout.md="column" fxLayout.sm="column" fxLayoutGap="10px">
+                    <div fxFlex="30">
+                        
+                        <div fxLayout="column" fxLayoutAlign="space-around center">
+                            <img #img1 [ngClass]="{'marco1': empleado.tipoContrato === 'CAP', 'marco2': empleado.tipoContrato === 'CAS'}" class="imgPersonaDetalle-lista"  mat-card-sm-image  [src]="empleado.foto" (mouseover)="over(empleado)" (mouseout)="out(empleado)">
+                            <div fxLayoutAlign="center">
+                                <mat-label [ngClass]="{'estado1': empleado.estado == 1, 'estado2': empleado.estado == 0}" style="font-weight: bold; font-size: 13px; "> {{empleado.estado==1?'HABILITADO':'INHABILITADO' }} </mat-label>
+                            </div>
+                        </div>
+                        <!--
+                        <div fxLayout="column" fxLayoutAlign="space-around center">
+                            <img [ngClass]="{'marco1': empleado.tipoContrato === 'CAP', 'marco2': empleado.tipoContrato === 'CAS'}" class="imgPersonaDetalle" *ngIf="empleado.contenidoFoto == null" mat-card-sm-image src="assets/img/icon/icon_user.svg">
+                            <img [ngClass]="{'marco1': empleado.tipoContrato === 'CAP', 'marco2': empleado.tipoContrato === 'CAS'}" class="imgPersonaDetalle" 
+                                mat-card-sm-image *ngIf="empleado.contenidoFoto != null" src="data:image/png;base64,{{empleado.contenidoFoto}}">  se quuito (mouseover)="over(empleado)" (mouseout)="out(empleado)"
+                                
+                            <div fxLayoutAlign="center">
+                                <mat-label [ngClass]="{'estado1': empleado.estado == 1, 'estado2': empleado.estado == 0}" style="font-weight: bold; font-size: 13px; "> {{empleado.estado==1?'HABILITADO':'INHABILITADO' }} </mat-label>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div fxFlex="70" fxLayout="column" class="contentDetPer1">
+                        <div class="contentDetPer2">
+                            <mat-label  class="tipoContrato-CAS-CAP" [ngClass]="{'fondo1': empleado.tipoContrato === 'CAP', 'fondo2': empleado.tipoContrato === 'CAS'} "  text-uppercase>{{ empleado.tipoContrato }}
+                            </mat-label>
+                            <mat-label class="text-uppercase text-nombre-apellido">{{ empleado.apellidoPaterno }} {{ empleado.apellidoMaterno }} {{ empleado.nombres }}</mat-label>
+                            <mat-label text-uppercase class="text-dni">{{ empleado.numeroDocumento }}</mat-label>
+                            <mat-label text-uppercase class="text-siglas">{{ empleado.gerencia.siglas }}</mat-label>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+            <pagination-controls
+              (pageChange)="page = $event"
+              (pageBoundsCorrection)="page = $event"
+              previousLabel="Anterior"
+              nextLabel="Siguiente">
+            </pagination-controls>
+          </div>
+    </div>
+
+    <div *ngIf="vista == 1" class="content-card contenedor marginBottom-15" fxLayout="column" fxLayoutAlign="start stretch">
+        <div *ngFor="let empleado of empleados | paginate: { itemsPerPage: 16, currentPage: page, totalItems: total }" >
+            <mat-card class="content_asistencia-lista" [ngClass]="{ desactivo: empleado.estado == 0 }">
+                <!-- <div fxLayout="row" fxLayoutAlign="end center">
+                    <button class="button_calend" mat-mini-fab [routerLink]="['/asistencias/asistencia', empleado.idEmpleado]">
+                        <mat-icon class="icono_editar">today</mat-icon>
+                    </button>
+                </div> -->
+                <mat-card-content fxLayout="row" fxLayoutAlign="start center">
+                    <div fxFlex="5" fxLayout="column" fxLayoutAlign="space-around center">
+                        <img [ngClass]="{'marco1': empleado.tipoContrato === 'CAP', 'marco2': empleado.tipoContrato === 'CAS'}" class="imgPersonaDetalle-lista"  mat-card-sm-image  [src]="empleado.foto"  (mouseover)="over(empleado)" (mouseout)="out(empleado)">
+                        <div fxLayoutAlign="center">
+                            <mat-label [ngClass]="{'estado1': empleado.estado == 1, 'estado2': empleado.estado == 0}" style="font-weight: bold; font-size: 13px; "> {{empleado.estado==1?'HABILITADO':'INHABILITADO' }} </mat-label>
+                        </div>
+                    </div>
+                    <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label class="tipoContrato-CAS-CAP" [ngClass]="{'fondo1': empleado.tipoContrato === 'CAP', 'fondo2': empleado.tipoContrato === 'CAS'} " text-uppercase>{{ empleado.tipoContrato }}
+                        </mat-label>
+                    </div>
+                    <div fxFlex="65" fxLayout="row" fxLayoutAlign="start center" class="contentDetPer2" fxLayoutGap="20px">
+                        <mat-label class="text-uppercase text-nombre-apellido">
+                                {{ empleado.apellidoPaterno }} {{ empleado.apellidoMaterno }} {{ empleado.nombres }}</mat-label>
+                        <mat-label text-uppercase class="text-dni">{{ empleado.numeroDocumento }}
+                        </mat-label>
+                        <mat-label text-uppercase class="text-siglas">{{ empleado.gerencia.siglas }}
+                        </mat-label>
+                     </div>
+                     <div fxFlex="20" fxLayoutAlign="end center">
+                        <button mat-raised-button class="button_calend" [routerLink]="['/asistencias/asistencia', empleado.idEmpleado]">
+                            Ver más
+                        </button>
+                     </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+            <pagination-controls
+              (pageChange)="page = $event"
+              (pageBoundsCorrection)="page = $event"
+              previousLabel="Anterior"
+              nextLabel="Siguiente">
+            </pagination-controls>
+        </div>
+    </div>
+</div>

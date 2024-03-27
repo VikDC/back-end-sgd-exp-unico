@@ -1,0 +1,192 @@
+<div style="overflow: none;" class="contenedor-modal" fxFlex fxLayout="column" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="20px" data-dismiss="modal">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="labelJusti" align="center" style="color: #3b3265;">
+            <span class="titulo-modal"  *ngIf="empleado.idSolicitud==null">Registro de Solicitud</span>
+            <span class="titulo-modal" *ngIf="empleado.idSolicitud!=null">Edición de Solicitud</span>
+        </div>
+
+        <button align="end" class="icon-cerrar-modal" mat-icon-button color="primary">
+            <mat-icon (click)="salir()">close</mat-icon>
+     </button>
+    </div>
+    <div class="load" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="contenedor">
+        <div *ngIf="selectEmpleado==true || empleado.idSolicitud!=null" fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="20px">
+                <mat-form-field style="width: 50%;">
+                    <mat-label>GERENCIA</mat-label>
+                    <mat-select [(ngModel)]="gerencia" (selectionChange)="changeGerencia()" [disabled]="empleado.idSolicitud!=null">
+                        <mat-option *ngFor="let gerencia of gerencias" [value]="gerencia">
+                            {{gerencia.siglas}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="verSubGerencia" style="width: 50%;">
+                    <mat-label>SUBGERENCIA</mat-label>
+                    <mat-select [(ngModel)]="subGerencia" (selectionChange)="changeSubGerencia()" [disabled]="empleado.idSolicitud!=null">
+                        <!--<mat-option [value]="uuooTodos">----</mat-option>-->
+                        <mat-option [value]="0">TODOS</mat-option>
+                        <mat-option *ngFor="let subgerencia of subGerencias" [value]="subgerencia">
+                            {{ subgerencia.siglas }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex>
+                <mat-form-field style="width: 100%;">
+                    <mat-label>EMPLEADO</mat-label>
+                    <input (change)="changeEmpleado()" #nombrEmpleado class="input1" type="text" matInput [formControl]="emp" placeholder="Buscar..." [matAutocomplete]="auto" [(ngModel)]="empleadoSeleccionado"  (keypress)="validarAlfanumerico($event)" >
+                    <mat-icon matSuffix style="background-color:#f2f2f2;  height: 25px;"> search </mat-icon>
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelectionChange($event)">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" style="font-size: 12px; height: 30px;">
+                            {{option.nombresEmpleado}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+        <div *ngIf="empleado.id!=0 || empleado.idSolicitud!=null" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="10px">
+            <div fxFlex="32" fxLayout="column">
+                <mat-card fxFlex class="card-lateral-modal">
+                    <div class="subtitulo-modal">INCIDENCIAS POR JUSTIFICAR:</div>
+                
+                    <mat-card-content fxLayout="column" class="contenedor">
+                    <mat-checkbox style="margin-left: 5px;" [(ngModel)]="isPermiso" (change)="seleccionarPermiso()" labelPosition="after">
+                        NINGUNO
+                    </mat-checkbox>
+                    <div *ngFor="let inc of incidentes;let i = index;">
+                        <mat-checkbox [ngModel]="inc.seleccionado" (click)="seleccionarIncidencia(inc);$event.preventDefault();" [disabled]="tipoSeleccionado > 0 &&  inc.idTipoIncidente != tipoSeleccionado" labelPosition="after">
+                            <div style="line-height: 1.2;width: 290px;padding: 5px 0px;">
+                                {{inc.nombreTipoIncidente}} <br> {{inc.fechaIncidente}}<span *ngIf="inc.horaIngreso != null"> {{ inc.horaIngreso }} </span> <span *ngIf="inc.horaSalida != null">- {{inc.horaSalida}}</span>
+                            </div>
+                        </mat-checkbox>
+                    </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div fxFlex="68">
+                <mat-card>
+                    <div fxFlex fxLayout="column" class="nuevaSolicitud1">
+                        <div fxLayout="column">
+                            <div fxFlex fxLayout="column">
+                                <div fxFlex fxLayout="row">
+                                    <mat-form-field fxFlex style="width: 100%!important;">
+                                        <mat-label>MOTIVO</mat-label>
+                                        <mat-select [(ngModel)]="solicitud.idTipoSolicitud" [matTooltip]="tipoSolicitudSeleccionado.nombre" (selectionChange)="selectMotivo(solicitud.idTipoSolicitud)">
+                                            <mat-option *ngFor="let tipoSolicitud of tiposSolicitud" [value]="tipoSolicitud.id">
+                                                {{ tipoSolicitud.nombre }}</mat-option>
+                                        </mat-select>
+                                        <mat-hint style="color:#1C3076;" align="start" *ngIf="solicitud.idTipoSolicitud > 0 && tipoSolicitudSeleccionado != null && tipoSolicitudSeleccionado.requiereSustento"><mat-icon>info</mat-icon>Requiere Sustento</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex fxLayout="row" *ngIf="tipoSolicitudSeleccionado.listaDetalle != undefined && tipoSolicitudSeleccionado.listaDetalle.length>1 " style="position: relative;">
+                                    <mat-form-field style="display: block; padding-right: 3em; margin-right: 3em;" fxFlex=90>
+                                        <mat-label>TIPO</mat-label>
+                                        <mat-select [(ngModel)]="detalleTipoSeleccionado" (selectionChange)="selectDetalleTipoSolicitud()">
+                                            <mat-option *ngFor="let detalle of tipoSolicitudSeleccionado.listaDetalle" [value]="detalle" [matTooltip]="detalle.ayuda ">
+                                                {{ detalle.descripcion }} <span *ngIf="solicitud.idTipoSolicitud==11"> ({{detalle.numeroDias}})</span></mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <div *ngIf="perteneceSindicato && solicitud.idTipoSolicitud==13" fxFlex=10 style="color: #443b6f;">
+                                        <mat-icon matTooltip="POR PERTENECER AL SINDICATO SUMAN DOS DÍAS HÁBILES ADICIONALES.">help</mat-icon>
+                                    </div>
+                                </div>
+                                <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+                                    <mat-form-field fxFlex="50">
+                                        <mat-label>FECHA INICIO</mat-label>
+                                        <input matInput ngModel [(ngModel)]="fechaInicio" [matDatepicker]="picker1" placeholder="FECHA INICIO" disabled [max]="fechaMaximo" [min]="fechaMinimo" (dateChange)="seleccionarFechaInicio()" />
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1 [disabled]="esJustificacion"></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field fxFlex="50">
+                                        <mat-label>FECHA FIN</mat-label>
+                                        <input matInput ngModel [(ngModel)]="fechaFin" [matDatepicker]="picker2" placeholder="FECHA FIN" disabled [max]="fechaMaximo" [min]="fechaInicio" />
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2 [disabled]="esJustificacion"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+                                    <mat-form-field style="margin-right: 5em; margin-top: 3em;" *ngIf="tipoSeleccionado == 15">
+                                        <mat-label>HORA</mat-label>
+                                        <input matInput ngModel [(ngModel)]="solicitud.horaInicio" placeholder="(HH:mm)" maxlength="5" type="time" />
+                                    </mat-form-field>
+                                    <mat-form-field fxFlex="50" *ngIf="tipoSeleccionado != 15">
+                                        <mat-label>HORA INICIO</mat-label>
+                                        <input class="icon-hora" matInput ngModel [(ngModel)]="solicitud.horaInicio" placeholder="(HH:mm)" maxlength="5" type="time" />
+                                    </mat-form-field>
+                                    <mat-form-field fxFlex="50" *ngIf="tipoSeleccionado != 15">
+                                        <mat-label>HORA FIN</mat-label>
+                                        <input class="icon-hora" matInput ngModel [(ngModel)]="solicitud.horaFin" placeholder="(HH:mm)" maxlength="5" type="time" />
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row">
+                                    <mat-form-field fxFlex>
+                                        <mat-label>DETALLE</mat-label>
+                                        <textarea matInput #Detalle [(ngModel)]="solicitud.detalle" appSinEspacio placeholder="DETALLE" maxlength="300" rows="4"></textarea>
+                                        <mat-hint align="end">{{ Detalle.value.length }} / 300</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <mat-card style="align-items: center; box-shadow: none; padding: 10px 0;">
+                                    <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
+                                        <label class="botonCancelar">
+                                    <input type="file" (change)="handleInputChange($event)" size="4096" ngModel #inputFile
+                                        accept="image/jpeg,image/png, application/pdf" />
+                                        SUBIR SUSTENTO
+                                        </label>
+                                         <mat-hint align="first" style="text-align: center; padding-top: 10px;">(JPG, PNG, PDF , máx. 3 archivos, máx. 4 MB por archivo)
+                                        </mat-hint>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div fxFlex="68" fxLayoutGap="5px">
+                                <div fxFlex class="contenedorSustento">
+                                    <mat-icon class="btnEliminar" *ngIf="sustento1.imgSrc !== undefined" (click)="eliminarImagen(1)">delete
+                                    </mat-icon>
+                                    <mat-label class="nombreArchivoSustento" >{{sustento1.nombreArchivoOriginal}}</mat-label>
+                                    <div fxLayout style="align-items: center;">
+                                        <img *ngIf="sustento1.imgSrc !== undefined &&sustento1.tipoArchivo === 'application/pdf'" mat-card-md-image src="assets/img/icon/pdf_icon_red.svg" style="margin-left: auto;margin-right: auto;" />
+                                        <img *ngIf="sustento1.imgSrc !== undefined && sustento1.tipoArchivo !== 'application/pdf' " mat-card-md-image [src]="sustento1.imgSrc" style="margin-left: auto;margin-right: auto;" />
+                                    </div>
+
+                                </div>
+                                <div fxFlex class="contenedorSustento">
+                                    <mat-icon class="btnEliminar" *ngIf="sustento2.imgSrc !== undefined" (click)="eliminarImagen(2)">delete
+                                    </mat-icon>
+                                    <mat-label class="nombreArchivoSustento"  >{{sustento2.nombreArchivoOriginal}}</mat-label>
+                                    <div fxLayout style="align-items: center;">
+                                        <img *ngIf=" sustento2.imgSrc !== undefined && sustento2.tipoArchivo === 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" src="assets/img/icon/pdf_icon_red.svg" />
+                                        <img *ngIf=" sustento2.imgSrc !== undefined && sustento2.tipoArchivo !== 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" [src]="sustento2.imgSrc" /></div>
+                                </div>
+                                <div fxFlex class="contenedorSustento">
+                                    <mat-icon class="btnEliminar" *ngIf="sustento3.imgSrc !== undefined" (click)="eliminarImagen(3)">delete
+                                    </mat-icon>
+                                    <mat-label class="nombreArchivoSustento" >{{sustento3.nombreArchivoOriginal}}</mat-label>
+                                    <div fxLayout style="align-items: center;">
+                                        <img *ngIf="sustento3.imgSrc !== undefined && sustento3.tipoArchivo === 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" src="assets/img/icon/pdf_icon_red.svg" />
+                                        <img *ngIf="sustento3.imgSrc !== undefined && sustento3.tipoArchivo !== 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" [src]="sustento3.imgSrc" /></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<div fxLayout="column" *ngIf="solicitud.id== null" class="botones">-->
+    <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <button class="botonPrincipal" (click)="mostrarDialogoGuardar()"  [disabled]="empleado.id==0 || empleado.id==2">
+                ENVIAR
+            </button>
+            <button class="botonCancelar" (click)="salir()">
+                CANCELAR
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,257 @@
+.title {
+    color: #443b6f;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0px;
+}
+
+.btnRegresar {
+    padding-left: 30px;
+    margin: 0;
+    position: absolute;
+    width: 117px !important;
+    right: 0px;
+    left: auto !important;
+}
+
+
+/* .button_calend{
+    box-shadow: none;
+    width: 25px; 
+    height: 25px; 
+    background-color: #3b3265;
+} */
+.icono_editar{
+    line-height: 0.3;
+    font-size: 20px;
+}
+
+.content_asistencia{
+    border-radius: 15px;
+    box-shadow: none;
+    border: 1px solid #ececec;
+    background-color: #f3f7fd;
+    margin-left: 5px;
+    cursor: pointer;
+    min-height: 100px;
+} 
+.content_asistencia-lista{
+    border-radius: 15px;
+    box-shadow: none;
+    border: 1px solid #ececec;
+    background-color: #f3f7fd;
+    margin-left: 5px;
+    cursor: pointer;
+    min-height: 100px;
+} 
+@media screen and (max-width: 1280px) {
+    .content_asistencia{
+        min-height: 170px;
+    } 
+    .responsive-img{
+        text-align: center!important;
+    }
+    .content_asistencia-lista{
+        min-height: 80px;
+      }
+  }
+  @media screen and (max-width: 1080px) {
+    .content_asistencia{
+        min-height: 185px;
+    } 
+  }
+@media screen and (max-width: 960px) {
+    .content_asistencia{
+        min-height: 200px;
+    } 
+    .nuevo{
+        width: 100%!important;
+
+    }
+  }
+@media screen and (max-width: 600px) {
+    .content_asistencia {
+      min-height: 100px;
+    }
+  }
+
+.contenedor {
+    background: #fff;
+    /* padding-top: 20px;
+    padding-left: 10px; */
+    /* padding-right: 20px; */
+    position: relative;
+    display: inline-block;
+    width: 98vw;
+    overflow-y: scroll;
+    height: 62vh;
+   /*  margin-left: 20px;
+    margin-right: 20px; */
+    padding-bottom: 2em;
+}
+
+.contenedor::-webkit-scrollbar {
+    width: 4px;
+    /* Tamaño del scroll en vertical */
+    height: 4px;
+    /* Tamaño del scroll en horizontal */
+    /* Ocultar scroll */
+}
+
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.contenedor::-webkit-scrollbar-thumb {
+    background: #443b6f;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.contenedor::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.contenedor::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+.contenedor>div {
+    /* width: 20%;
+    display: inline-block !important; */
+    padding: 5px 5px;
+}
+
+.btnBuscarVerFicha {
+    position: absolute;
+    right: 6px;
+    top: 5px;
+    cursor: pointer;
+    transform: rotateY(180deg);
+    background: #3b3265;
+    border-radius: 50%;
+    color: white;
+    outline: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+.tipoContrato {
+    position: absolute;
+    right: 15px;
+    border-radius: 50%;
+    color: #3b3265;
+    font-weight: 600;
+    bottom: 5px;
+    display: block;
+    outline: none;
+}
+
+.desactivo {
+    background: #EBECEE;
+}
+
+.imgPersonaDetalle {
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px;
+}
+
+.contentDetPer1 {
+    position: relative;
+    padding-left: 15px;
+    padding-top: 0.1em;
+}
+
+.contentDetPer2 {
+    display: inline-grid;
+    position: relative;
+    top: 11%;
+    color: #443b6f;
+    font-weight: 500;
+}
+
+.mensajeFiltro {
+    flex: 1 1 0%;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #443b6f;
+    padding-top: 12px;
+    padding-left: 11px;
+}
+
+.cuadro{
+    color: #cccccc;
+    font-size: 50px;
+    border: none;
+    border-radius: 0% !important;
+    background-color: white;
+    outline: none;
+    }
+    .cuadro:hover{
+        cursor: pointer;
+        color: #56ffff!important;
+    
+    }
+    .cuadro:focus{
+        cursor: pointer;
+        color: #56ffff!important;
+        
+    }
+    .linea{
+        color: #cccccc;
+        font-size: 50px;
+        border: none;
+        border-radius: 0% !important;
+        background-color: white;
+        outline: none;
+        }
+        .linea:hover{
+            cursor: pointer;
+            color: #56ffff!important;
+        
+        }
+        .linea:focus{
+            cursor: pointer;
+            color: #56ffff!important;
+            
+        }
+
+.buttonFiltrar {
+    background: #3b3265;
+    border-radius: 18px;
+    text-align: center;
+    color: white;
+    left: 7px;
+    line-height: 20px;
+    margin-top: 18px;
+}
+
+.buttonQFiltro {
+    border-radius: 18px;
+    text-align: center;
+    width: 93%;
+    border-style: solid;
+    color: #3b3265;
+    background: none;
+    border-width: thin;
+    left: 7px;
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 12px;
+    margin-top: 18px;
+}
+.estado1{
+    color: green !important;
+    font-weight: bold;
+    padding: 5px;
+}
+.estado2{
+    color: red !important;
+    font-weight: bold;
+    padding: 5px;
+}

@@ -1,0 +1,492 @@
+<!--<div fxLayout="column" fxLayoutAlign="center none" >-->
+<!--<div class="contenedor"  fxFlex fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxFlexFill> -->
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center" class="volver">
+        <button class="botonVolver-asistencia" (click)="salir()" fxLayoutAlign="start center">
+            <span class="material-icons">chevron_left</span><span class="text-linea">Volver a la Asistencia Personal</span>
+        </button>
+    </div>
+    <div fxLayout="row" class="cabeceraTitulo" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+
+        <span class="subtitulo-nombre" fxFlex>{{ empleado.apellidoPaterno }} {{ empleado.apellidoMaterno }} {{ empleado.nombres }}<a [ngClass]="{'tipo1': empleado.tipoContrato === 'CAP', 'tipo2': empleado.tipoContrato === 'CAS'} " class="empleado-cargo">{{empleado.tipoContrato }}</a></span>
+        <div fxLayoutAlign="space-between center" fxLayout.lt-sm="column" fxLayoutGap="10px">
+        </div>
+    </div>
+    <mat-divider class="divide-header"></mat-divider>
+
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxFlexFill fxLayoutGap="20px" style="padding: 0px 2vh;">
+        <!-- <div fxLayout="row" fxLayoutAlign="center none"> -->
+        <!-- <div fxLayout="column" fxFlex> -->
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="start stretch">
+            <mat-card fxLayout="column" fxLayoutAlign="start stretch" style="border-radius: 21px; box-shadow: none; background-color: #ececec;" >
+                <div class="contentImg_2" fxLayoutAlign="center center" style="width: 100%; padding: 5px 0;">
+                    <img class="imgPersonaDetalle" mat-card-sm-image [ngClass]="{'marco1': empleado.tipoContrato === 'CAP', 'marco2': empleado.tipoContrato === 'CAS'} " mat-card-sm-image [src]="imageSrc"/>
+                </div>
+                <div class="contentLetra_2" fxLayout="column" fxLayoutAlign="space-around stretch"  style="width: 50%; margin: 0 auto;">
+                    <div fxFlex="33" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{'estado1': empleado.estado == 1, 'estado2': empleado.estado == 0}" style="font-weight: bold;">PERSONAL {{empleado.estado== 1?'HABILITADO':'INHABILITADO'}}</div>
+                    <div fxFlex="33" fxLayout="row" fxLayoutAlign="space-between center" style="font-weight: bold;" *ngIf="empleado.gerencia.siglas != null">
+                       <div> GERENCIA: </div> <div> {{empleado.gerencia.siglas }}</div>
+                    </div>
+                    <div fxFlex="33" fxLayout="row" fxLayoutAlign="space-between center" style="font-weight: bold;"*ngIf="empleado.tipoContrato != null">
+                        <div>TIPO DE RÉGIMEN:</div> <div>{{empleado.tipoContrato }}</div>
+                    </div>
+
+                </div>
+                <div class="hr-lateral"></div>
+                <div class="contentDatos">
+                    <span style="color: #3b3265; font-weight: bold;">Datos</span>
+                </div>
+
+                <div class="contentDatos" fxFlex fxLayout="column">
+                    <div class="contentDatosDetalle_2" fxLayout="column">
+                        <div fxFlex *ngIf="empleado.tipoContrato == 'CAP'">
+                            <span fxFlex="85" class="contentDetTitu">Faltas por Tardanza:</span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ faltasPorTardanza }}</span>
+
+                        </div>
+                        <div fxFlex >
+                            <span fxFlex="85" class="contentDetTitu">Salidas Anticipadas:</span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ salidasAnticipadas }}</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contentDatos" fxFlex>
+                    <div class="contentDatosDetalle_2">
+                        <div fxFlex  >
+                            <span fxFlex="85" class="contentDetTitu">Sobretiempo: </span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ sobretiempo }} hrs</span>
+                        </div>
+                        <div fxFlex>
+                            <span fxFlex="85" class=" contentDetTitu">Total de Minutos de tardanzas:</span>
+                            <span fxFlex="15" class=" contentDetTitu"> {{ totalMinutosTardanza }}</span>
+                        </div>
+                        <mat-divider style="color: #a79ed1; margin-left: 27px; width: 85%;"></mat-divider>
+                    </div>
+                </div>
+                <div class="contentDatos" fxFlex fxLayout="column">
+                    <div class="contentDatosDetalle_2">
+                        <div fxFlex>
+                            <span fxFlex="85" class="contentDetTitu">Total de Solicitudes Registradas en el Mes: </span>
+                            <span fxFlex="15" class="contentDetTitu"> {{ totalSolicitudes }}</span>
+                        </div>
+                    </div>
+                    <mat-divider style="color: #a79ed1; margin-left: 27px; width: 85%;"></mat-divider>
+                </div>
+
+                <div class="contentDatos" fxFlex>
+                    <div class="contentDatosDetalle_2">
+                        <div fxFlex>
+                            <span fxFlex="85" class=" contentDetTitu" style="font-weight: bold;">Permisos:</span>
+                            <span fxFlex="15" class=" contentDetTitu" style="font-weight: bold;"> {{totalDiasPermiso }} días</span>
+                        </div>
+                        <div class="contenedor">
+                            <div *ngFor="let permiso of listaPermiso" [matTooltip]="permiso.horario">
+                                <span fxFlex="85" class="contentDetTituSub" style="padding-left: 10px;">{{permiso.fechaInicio|date:'dd/MM/yyyy'}}
+                                al {{permiso.fechaFin|date:'dd/MM/yyyy'}}-{{permiso.nombreCortoSolicitud}}</span>
+                                <span fxFlex="15" class="contentDetTituSub">{{permiso.nroDias}}</span>
+                            </div>
+                        </div>
+                        <!-- <mat-divider style="color: #a79ed1; margin-left: 27px; width: 85%;"></mat-divider> -->
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+
+        <div fxLayout="column" fxFlex="40">
+            <div class="titulo">Seleccione la solicitud</div>
+            <div fxLayout="row" style="position: relative;">
+                <div fxFlex fxLayout="row" class="contenedorAsistencia" style="height: 152px;" >
+                    <div fxLayout="row" style="position: relative;" *ngIf=" asistencia.listaIncidente != undefined && asistencia.listaIncidente.length > 0">
+                        <div fxLayout="row" style="position: relative;" *ngFor="let incidente of asistencia.listaIncidente">
+                            <div (click)="seleccionarIncidente(incidente)" [ngClass]="{ diaLaborable: true, seleccionado: idIncidenteSeleccionado == incidente.id}" class="contentDias" fxLayout="column">
+                                <div fxFlex="30" class="textDiaPrinOne">{{ asistencia.diaMes }}</div>
+                                <div class="cabezeraDias" fxFlex="40">
+                                    <span class="minutero" *ngIf="asistencia.minutosTarde != null && asistencia.minutosTarde > 0 ">{{ asistencia.minutosTarde }}'</span>
+                                    <span *ngIf="incidente.tipoIncidente.id != 15">INGRESO : {{ asistencia.horaIngres }} </span>
+                                    <span *ngIf="incidente.tipoIncidente.id != 15">SALIDA : {{ asistencia.horaFin }}</span>
+                                    <span *ngIf="incidente.tipoIncidente.id == 15">MARCACIÓN : {{ asistencia.horaIngres }}</span>
+                                </div>
+
+                                <div class="avisoDias" [ngClass]="{
+                                        incidente: incidente.estado === 0,
+                                        incidenteEnviado: incidente.estado === 1,
+                                        incidenteAprobado: incidente.estado === 2,
+                                        incidenteValidado: incidente.estado === 3,
+                                        incidenteRechazado: incidente.estado === 4}">
+                                    <p class="letraAviso">{{ incidente.tipoIncidente.nombre }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div fxLayout="row" style="position: relative;" *ngIf="asistencia.ultimoDiaAsistencia == true">
+                        <div class="contentDias" (click)="nuevoPermiso()" fxLayout="column" [ngClass]="{ diaActual: true }">
+                            <div class="cabezeraDias" fxFlex="30">
+                            </div>
+                            <div fxFlex="40" class="textDiaPrinOne" style="color: #595959;">{{ asistencia.diaMes }}</div>
+                            <div class="botonNuevoAviso" (click)="nuevoPermiso()" [ngClass]="{nuevaSolicitud: true}">
+                                <p class="letraAviso">
+                                    + PERMISO
+                                </p>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div fxLayout="row" style="position: relative; background-color: #f3f7fd;" *ngIf="listaPermisosConSustento!= undefined && listaPermisosConSustento.length > 0">
+                        <div class="contentDias" fxLayout="column" (click)="seleccionarSolicitud(sol)" *ngFor="let sol of listaPermisosConSustento" [ngClass]="{'diaLaborable':true,'seleccionado':idSolicitudSeleccionado==sol.id}">
+                            <div fxFlex="30" class="textDiaPrinOne">{{dia}}</div>
+                            <div class="cabezeraDias" fxFlex="40">
+                                <span class="minutero" *ngIf="asistencia.minutosTarde != null && asistencia.minutosTarde > 0 ">{{ asistencia.minutosTarde }}'</span>
+                                <span *ngIf="asistencia.horaIngres != null" class="color-ingr-sal">INGRESO: {{ asistencia.horaIngres }} </span>
+                                <span *ngIf=" asistencia.horaFin !=null">SALIDA : {{ asistencia.horaFin }}</span>
+                            </div>
+
+                            <div  fxFlex="30" class="avisoDias" [ngClass]="{
+                                incidente: sol.estado === 0,
+                                incidenteEnviado: sol.estado === 1,
+                                incidenteAprobado: sol.estado === 2,
+                                incidenteValidado: sol.estado === 3,
+                                incidenteRechazado: sol.estado === 4
+                              }">
+                                <p class="letraAviso">{{sol.descripcion}}</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <mat-divider style="padding: 5px;"></mat-divider> -->
+            <div fxFlex fxLayout="column" *ngIf="solicitud.id != null">
+                <div fxFlex fxLayout="column">
+                    <div fxFlex="10"  fxLayout="row">
+                        <h2 class="labelJusti" style="font-size: 17px; color: #3b3265; font-weight: 600;">CAUSA DE <span *ngIf="!isPermiso">INCIDENCIA</span><span *ngIf="isPermiso">PERMISO</span></h2>
+                        <mat-icon style="color: #3b3265;cursor: pointer;" matTooltip="Reenviar Solicitud" (click)="reenviarSolicitud(solicitud)" *ngIf="solicitud.estado==4 && puedeReenviarSolicitud(solicitud)">undo</mat-icon>
+                    </div>
+
+                    <div fxLayout="column" fxFlex="20">
+                        <div fxFlex="50" class="titulo">MOTIVO:</div>
+                        <div fxFlex="50" class="detalleTitulo">{{solicitud.nombreSolicitud}} <span *ngIf="solicitud.idDetalleTipoSolicitud != null && solicitud.nombreDetalleSolicitud != null ">- {{solicitud.nombreDetalleSolicitud}} <span *ngIf="solicitud.idTipoSolicitud == 11">({{solicitud.numeroDias}} DÍAS)</span></span>
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxLayout.xs="column" fxFlex="25">
+                        <div fxLayout="column" fxFlex="50">
+                            <div fxFlex="40" class="titulo">FECHA INICIO: </div>
+                            <div fxFlex="60" class="detalleTitulo"> {{solicitud.fechaInicio|date:'dd/MM/yyyy'}}</div>
+                        </div>
+                        <div fxLayout="column" fxFlex="50">
+                            <div fxFlex="40" class="titulo">FECHA FIN: </div>
+                            <div fxFlex="60" class="detalleTitulo"> al {{solicitud.fechaFin|date:'dd/MM/yyyy'}}</div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxLayout.xs="column" fxFlex="25">
+                        <div fxLayout="column" fxFlex="50">
+                            <div fxFlex="40" class="titulo" *ngIf="solicitud.horaFin != null && solicitud.horaInicio != solicitud.horaFin">HORA INICIO: </div>
+                            <div fxFlex="40" class="titulo" *ngIf="solicitud.horaFin != null && solicitud.horaInicio == solicitud.horaFin">HORA: </div>
+                            <div fxFlex="60" class="detalleTitulo">{{solicitud.horaInicio}}</div>
+                        </div>
+                        <div fxLayout="column" fxFlex="50">
+                            <div fxFlex="40" class="titulo" *ngIf="solicitud.horaFin != null && solicitud.horaInicio != solicitud.horaFin">HORA FIN: </div>
+                            <div fxFlex="60" class="detalleTitulo" *ngIf="solicitud.horaFin != null && solicitud.horaInicio != solicitud.horaFin"> {{solicitud.horaFin}} </div>
+                        </div>
+                    </div>
+
+                    <!-- <div fxLayout="column" fxFlex="20">
+                        <span fxFlex="30" class="titulo">HORA: </span>
+                        <span fxFlex="70" class="detalleTitulo">{{solicitud.horaInicio}}<span *ngIf="solicitud.horaFin != null && solicitud.horaInicio != solicitud.horaFin" >- {{solicitud.horaFin}} </span> </span>
+                    </div> -->
+
+
+                    <div fxLayout="column" fxFlex>
+                        <div>
+                            <span fxFlex class="titulo">DETALLE:</span>
+                        </div>
+                        <div fxFlex class="textoDetalle">
+                            <span style="justify-content: end;">{{solicitud.detalle}}</span>
+
+                        </div>
+                    </div>
+
+                    <div fxLayout="column" fxFlex *ngIf="solicitud.estado == 4">
+                        <div>
+                            <span fxFlex class="titulo">MOTIVO RECHAZO:</span>
+                        </div>
+                        <div fxFlex class="textoDetalle">
+                            <span style="justify-content: end;">{{solicitud.observacion}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div fxFlex fxLayout="column" *ngIf="solicitud.id == null" class="nuevaSolicitud1">
+                <div fxLayout="column">
+                    <h2 class="labelJusti" style="color: #3b3265; font-size: 16px;">JUSTIFICACIÓN DE <span *ngIf="!isPermiso">INCIDENCIA</span><span *ngIf="isPermiso">PERMISO</span></h2>
+                    <div fxFlex fxLayout="column">
+                        <div fxFlex fxLayout="column">
+                            <mat-form-field style="display: block; padding-right: 3em; margin-right: 3em;" fxFlex="50">
+                                <mat-label>MOTIVO</mat-label>
+
+                                <mat-select [(ngModel)]="solicitud.idTipoSolicitud" [disabled]="!seHabilitaParaRegistro" [matTooltip]="obtenerNombre(solicitud.idTipoSolicitud)" (selectionChange)="selectMotivo(solicitud.idTipoSolicitud)" #motivo>
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let tipoSolicitud of tiposSolicitud" [value]="tipoSolicitud.id">
+                                        {{ tipoSolicitud.nombre }}  </mat-option>
+                                </mat-select>
+                                <mat-hint style="color:#1C3076;font-size: 100%;" align="start" *ngIf="solicitud.idTipoSolicitud > 0 && tipoSolicitudSeleccionado != null && tipoSolicitudSeleccionado.requiereSustento"><mat-icon>info</mat-icon>Requiere Sustento</mat-hint>
+
+                                    </mat-form-field>
+                                </div>
+                                    <div fxFlex fxLayout="row">
+                            <mat-form-field style="margin-right: 3.5em; ">
+                                <mat-label>FECHA INICIO</mat-label>
+                                <input matInput ngModel [(ngModel)]="fechaInicio" [matDatepicker]="picker1" placeholder="FECHA INICIO" disabled [max]="fechaMaximo" [min]="fechaMinimo" />
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1 [disabled]="!seHabilitaParaRegistro || idIncidenteSeleccionado != null "></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>FECHA FIN</mat-label>
+                                <input matInput ngModel [(ngModel)]="fechaFin" [matDatepicker]="picker2" placeholder="FECHA FIN" disabled [max]="fechaMaximo" [min]="fechaMinimo" />
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2 [disabled]="!seHabilitaParaRegistro || idIncidenteSeleccionado != null"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex fxLayout="row" *ngIf="tipoSolicitudSeleccionado.listaDetalle != undefined && tipoSolicitudSeleccionado.listaDetalle.length>1 && solicitud.tipo == 1 " style="position: relative;">
+                            <mat-form-field style="display: block; padding-right: 3em; margin-right: 3em;" fxFlex=50>
+                                <mat-label>TIPO</mat-label>
+                                <mat-select [(ngModel)]="solicitud.idDetalleTipoSolicitud" (selectionChange)="selectDetalleTipoSolicitud(solicitud.idDetalleTipoSolicitud)">
+                                    <mat-option *ngFor="let detalle of tipoSolicitudSeleccionado.listaDetalle" [value]="detalle.id" [matTooltip]="detalle.ayuda ">
+                                        {{ detalle.descripcion }} <span *ngIf="solicitud.idTipoSolicitud==11"> ({{detalle.numeroDias}})</span></mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="perteneceSindicato && solicitud.idTipoSolicitud==13" fxFlex=10 style="color: #443b6f;">
+                                <mat-icon matTooltip="Por pertenecer al sindicato suman dos días adicionales.">help</mat-icon>
+                            </div>
+
+                        </div>
+                        <div fxLayout="row">
+
+                            <mat-form-field style="margin-right: 5em; margin-top: 3em;" *ngIf="tipoIncidenteSeleccionado == 15">
+                                <mat-label>HORA</mat-label>
+                                <input matInput ngModel [(ngModel)]="solicitud.horaInicio" placeholder="(HH:mm)" maxlength="5" [disabled]="!seHabilitaParaRegistro" type="time" />
+                            </mat-form-field>
+                            <mat-form-field style="margin-right: 5em; margin-top: 3em;" *ngIf="tipoIncidenteSeleccionado != 15">
+                                <mat-label>HORA INICIO</mat-label>
+                                <input matInput ngModel [(ngModel)]="solicitud.horaInicio" placeholder="(HH:mm)" maxlength="5" [disabled]="!seHabilitaParaRegistro" type="time" #horaFin />
+                            </mat-form-field>
+                            <mat-form-field style="margin-right: 3em; margin-top: 3em;" *ngIf="tipoIncidenteSeleccionado != 15">
+                                <mat-label>HORA FIN</mat-label>
+                                <input matInput ngModel [(ngModel)]="solicitud.horaFin" placeholder="(HH:mm)" maxlength="5" [disabled]="!seHabilitaParaRegistro" type="time" #horaInicio />
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="100" style="padding-right: 3em; margin-right: 3em;">
+                                <mat-label>DETALLE</mat-label>
+                                <textarea matInput #Detalle [(ngModel)]="solicitud.detalle" appSinEspacio placeholder="DETALLE" maxlength="300" rows="4" [disabled]="!seHabilitaParaRegistro"></textarea>
+                                <mat-hint align="start">{{ Detalle.value.length }} / 300</mat-hint>
+                            </mat-form-field>
+                            </div>
+
+                    </div>
+                </div>
+                <div fxFlex fxLayout="column" *ngIf="solicitud.id == null" class="cargarArchivo">
+                    <div fxFlex=20 fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                        <label class="button-subir-sustento" fxLayoutAlign="center center">
+                            <input type="file" (change)="handleInputChange($event)" size="4096" ngModel #inputFile
+                                accept="image/jpeg,image/png, application/pdf" [disabled]="!seHabilitaParaRegistro"/>
+                            SUBIR SUSTENTO
+                        </label>
+
+                        <mat-hint style="font-size: 11px; padding-top: 1vh;" align="first">(JPG, PNG, PDF , máx. 3 archivos, máx. 4 MB por archivo) <!-- 08-04-2024 -->
+                        </mat-hint>
+                    </div>
+
+                    <div fxFlex=60 style="padding-bottom: 5vh;">
+                        <div fxFlex class="contenedorSustento">
+                            <mat-icon class="btnEliminar" *ngIf="sustento1.imgSrc !== undefined" (click)="eliminarImagen(1)">delete
+                            </mat-icon>
+                            <mat-label class="nombreArchivoSustento" >{{sustento1.nombreArchivoOriginal}}</mat-label>
+                            <div fxLayout style="align-items: center;height: 90%;">
+                                <img *ngIf="
+                                        sustento1.imgSrc !== undefined &&
+                                        sustento1.tipoArchivo === 'application/pdf'" mat-card-md-image src="assets/img/icon/pdf_icon_red.svg" style="margin-left: auto;margin-right: auto;" />
+                                <img *ngIf="sustento1.imgSrc !== undefined && sustento1.tipoArchivo !== 'application/pdf' " mat-card-md-image [src]="sustento1.imgSrc" style="margin-left: auto;margin-right: auto;" />
+                            </div>
+
+                        </div>
+                        <div fxFlex class="contenedorSustento">
+                            <mat-icon class="btnEliminar" *ngIf="sustento2.imgSrc !== undefined" (click)="eliminarImagen(2)">delete
+                            </mat-icon>
+                            <mat-label class="nombreArchivoSustento"  >{{sustento2.nombreArchivoOriginal}}</mat-label>
+                            <div fxLayout style="align-items: center;height: 90%;">
+                                <img *ngIf=" sustento2.imgSrc !== undefined && sustento2.tipoArchivo === 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" src="assets/img/icon/pdf_icon_red.svg" />
+                                <img *ngIf=" sustento2.imgSrc !== undefined && sustento2.tipoArchivo !== 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" [src]="sustento2.imgSrc" /></div>
+                        </div>
+                        <div fxFlex class="contenedorSustento">
+                            <mat-icon class="btnEliminar" *ngIf="sustento3.imgSrc !== undefined" (click)="eliminarImagen(3)">delete
+                            </mat-icon>
+                            <mat-label class="nombreArchivoSustento" >{{sustento3.nombreArchivoOriginal}}</mat-label><!-- {{seHabilitaParaRegistro}}-->
+                            <div fxLayout style="align-items: center;height: 90%;">
+                                <img *ngIf="sustento3.imgSrc !== undefined && sustento3.tipoArchivo === 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" src="assets/img/icon/pdf_icon_red.svg" />
+                                <img *ngIf="sustento3.imgSrc !== undefined && sustento3.tipoArchivo !== 'application/pdf'" mat-card-md-image style="margin-left: auto;margin-right: auto;" [src]="sustento3.imgSrc" /></div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxFlex="20"  *ngIf="solicitud.id== null" class="botones" fxLayoutGap="10px">
+                        <button class="botonPrincipal" color="primary" (click)="mostrarDialogoGuardar()" [disabled]="habilitaRegistro">
+                            ENVIAR
+                        </button>
+                        <button (click)="salir()" class="botonCancelar">
+                            CANCELAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div fxFlex="33" fxLayout="column" *ngIf="solicitud.id != null">
+                <div fxFlex="10" class="texto-documento-susten">DOCUMENTOS DE SUSTENTO</div>
+                <div fxFlex style="padding-top: 3vh; padding-bottom: 5vh;">
+                    <span *ngIf="solicitud.sustentos.length == 0" style="align-items: center;padding: 4px 0px;">{{mensaje}}</span>
+
+                    <div fxFlex=30 class="contenedorSustentoDownload" *ngFor="let sustento of solicitud.sustentos">
+                        <div fxLayout="column" >
+                            <div fxLayout style="align-items: center;height: 90%;">
+                                <img *ngIf="sustento.imgSrc !== undefined && sustento.tipoArchivo === 'application/pdf' " mat-card-md-image src="assets/img/icon/pdf_icon_red.svg" style="margin-left: auto;margin-right: auto;">
+                                <img *ngIf="sustento.imgSrc !== undefined && sustento.tipoArchivo !== 'application/pdf' " mat-card-md-image [src]="sustento.imgSrc" style="margin-left: auto;margin-right: auto;">
+                            </div>
+                            <mat-label class="puntos" >{{sustento.nombreArchivoOriginal}}</mat-label>
+                        </div>
+                        <a [href]="sustento.url" class="btnDescarga" [download]="sustento.nombreArchivo">
+                            <mat-icon class="btnDescarga" (click)="descargarArchivo(sustento)">cloud_download</mat-icon>
+
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div fxFlex="30" fxLayout="column">
+
+            <div fxFlex="25" *ngIf="mostrarMarcaciones"  fxLayout="column" style="border-radius: 20px;">
+                <mat-card fxLayout="column" style="background-color:#f3f7fd; border-radius: 20px;">
+                    <h3 style="color:#4b3d89;"> Marcaciones </h3>
+                    <div class="contenedorMarcaciones">
+                        <ul style="text-align:justify; padding-left:0; padding-right: 15px;margin: 0;color: #7165a9;; ">
+                            <li style="list-style-type: none;" *ngFor="let marcacion of marcaciones"> <span style="font-weight: bold;">Hora: {{marcacion}}</span>
+                            </li>
+                        </ul>
+                     </div>
+                </mat-card>
+            </div>  
+      
+          <!--   <div fxLayout="column" fxFlex="30" *ngIf="solicitud.id!= null" fxLayoutAlign="start stretch" style="background-color:#f3f7fd; border-radius: 20px; border: 1px solid#ececec;"> -->
+            <div fxLayout="column" fxFlex="75" *ngIf="solicitud.id!= null" fxLayoutAlign="start stretch" style="border-radius: 20px;background-color:#f3f7fd;" >
+                  
+    
+                <!-- <div fxFlex fxLayout="column" > -->
+                    <mat-card fxFlex="25" fxLayout="column" style="background-color:#f3f7fd; border-radius: 20px 20px 0 0;">
+                        <!-- <h3 style="color:#3b3265"> IMPORTANTE </h3> -->
+                        <h3 style="color:#71dfa3;"> Seguimiento de la solicitud </h3>
+                        <ul style="text-align:justify; padding-left: 15px; padding-right: 15px; ">
+                            <!--<li>SU SOLICITUD FUE ENVIADA EL <span style="font-weight: bold;">{{solicitud.fechaRegistro}} </span>PARA SU VALIDACIÓN A SU <span style="font-weight: bold;">GERENTE</span> Y EL <span style="font-weight: bold;">AREA RRHH</span>-->
+                            <li> {{mensajeSolicitud}} <span style="font-weight: bold;">{{solicitud.fechaRegistro}} horas</span>
+                            </li>
+                        </ul>
+                    </mat-card>
+    
+                    <div fxFlex fxLayout="column">
+                        <mat-card fxLayout="row" fxLayoutAlign="space-around center" *ngIf="niveles >= 2" [ngClass]="{'tarjeta':true,'tarjeta1':true,'tarjetaActiva':solicitud.estado==1 && solicitud.estados.length==0}">
+    
+                            <div fxFlex="30" class="contenedorImagen">
+                                <div class="contenedorImagen">
+                                    <span class="imagen">
+                                        SG
+                                    </span>
+                                </div>
+                            </div>
+                            <div fxFlex="70" fxLayout="column" fxLayoutGap="10px">
+    
+                                <div fxFlex="70" class="descripcionAprobador ">
+                                    <span class="textAprobador">
+                                        Sub Gerente
+                                    </span>
+                                </div>
+                                <div fxFlex="30 " class="estadoMostrar">
+                                    <span style="color: #a79ed1;" *ngIf="solicitud.estado==1 && solicitud.estados.length==0">Enviado</span>
+                                    <span style="color: #888888;" *ngIf="(solicitud.estado==1 && niveles>1 && solicitud.estados != null && solicitud.estados.length == 1)">Visto</span>
+                                    <span style="color: #888888;" *ngIf="(solicitud.estado==2 && niveles> 1)">Visto</span>
+                                    <span style="color: #ff5c5c;" *ngIf="solicitud.estado==4 && solicitud.estados.length==1">Rechazado</span>
+                                </div>
+                            </div>
+                        </mat-card >
+                        <mat-card fxLayout="row" fxLayoutAlign="space-around center" *ngIf="niveles >= 1" [ngClass]="{'tarjeta':true,'tarjeta1':true,'tarjetaActiva':(solicitud.estado==1 && niveles==1) || (solicitud.estado==1 && niveles>1 && solicitud.estados != null && solicitud.estados.length == 1)}">
+                            <div fxFlex="30">
+                                <div class="contenedorImagen">
+                                    <span class="imagen">
+                                        GE
+                                    </span>
+                                </div>
+                            </div>
+                            <div fxFlex="70" fxLayout="column" fxLayoutGap="10px">
+                                <div fxFlex="70" class="descripcionAprobador">
+                                    <span class="textAprobador">
+                                        Gerente
+                                    </span>
+                                </div>
+                                <div fxFlex="30 " class="estadoMostrar">
+                                    <span style="color: #00d1ff;" *ngIf="(solicitud.estado==1 && niveles==1) || (solicitud.estado==1 && niveles>1 && solicitud.estados != null && solicitud.estados.length == 1)">Recibido</span>
+                                    <span style="color: #39d79e;" *ngIf="(solicitud.estado==2)">Aprobado</span>
+                                    <span style="color: #ff5c5c;" *ngIf="solicitud.estado==4 && solicitud.estados.length==2">Rechazado</span>
+                                </div>
+                            </div>
+    
+                        </mat-card>
+                        <mat-card fxLayout="row" fxLayoutAlign="space-around center" [ngClass]="{'tarjeta':true,'tarjeta1':true,'tarjetaActiva':solicitud.estado==2}">
+                            <div fxFlex="30">
+                                <div class="contenedorImagen">
+                                    <!--<span class="imagen" style="display: flex;justify-content:center;align-items: center;">RRHH</span> -->
+                                    <span class="imagen">
+                                        RRHH
+                                    </span>
+                                </div>
+                            </div>
+                            <div fxFlex="70" fxLayout="column" fxLayoutGap="10px">
+                                <div fxFlex="70" class="descripcionAprobador">
+                                    <span class="textRRHH">
+                                        rrhh@onpe.gob.pe
+                                    </span>
+                                </div>
+                                <div fxFlex="30 " class="estadoMostrar">
+                                    <span style="color: #50abfe;" *ngIf="(solicitud.estado==3)">Validado</span>
+                                    <span style="color: #00d1ff;" *ngIf="(solicitud.estado==2)">Recibido</span>
+                                    <span style="color: #ff5c5c;" *ngIf="solicitud.estado==4 && solicitud.estados.length==3">Rechazado</span>
+                                </div>
+                            </div>
+                        </mat-card>
+                        
+                       
+                    </div>
+                    
+                    <div fxFlex="20" fxLayout="column" fxLayoutAlign="start center"   >
+                        <div  fxLayout="column" fxLayoutGap="5px" >
+                            <button (click)="salir()" class="botonCancelar"> CANCELAR
+                            </button>
+                        </div>
+                    </div>
+                   
+                
+    
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

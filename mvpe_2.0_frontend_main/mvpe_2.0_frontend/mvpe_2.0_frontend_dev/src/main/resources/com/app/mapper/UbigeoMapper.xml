@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.UbigeoMapper">
+
+	<resultMap id="resultSelect" type="ubigeoModel"  	>
+		<result property="codigo" column="cod_ubigeo" />
+		<result property="departamento" column="dpto_ubigeo" />
+		<result property="provincia" column="prov_ubigeo" />
+		<result property="distrito" column="dist_ubigeo" />
+		<result property="estado" column="estado_ubigeo" />
+	</resultMap>
+	
+	<select id="getDepartamento" resultMap="resultSelect">
+		SELECT DISTINCT
+		SUBSTR(cod_ubigeo, 1,2) cod_ubigeo,
+		dpto_ubigeo FROM tbl_ubigeo
+		WHERE dpto_ubigeo NOT IN ('AMERICA', 'ASIA', 'EUROPA','OCEANIA', 'AFRICA') and estado_ubigeo is true
+		ORDER BY dpto_ubigeo
+	</select>
+</mapper>

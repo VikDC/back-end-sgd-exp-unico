@@ -1,0 +1,693 @@
+.botonVolver-asistencia {
+    background-color: #fff;
+    border: none;
+    color: #4a3d89;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 3px;
+    outline: none;
+    text-align: center;
+    width: 250px;
+}
+.legenda {
+    text-align: right;
+    padding: 5px 16px;
+    padding-top: 32px;
+}
+
+.legendProgramado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendProgramado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #58d69f;
+    left: 10px;
+    top: 4px;
+    border-radius: 50px;
+}
+
+.legendNOjustificada {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+    border-radius: 50px;
+}
+
+.legendNOjustificada::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f9a500;
+    left: 10px;
+    top: 4px;
+    border-radius: 50px;
+}
+
+.legendAdelanto {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendAdelanto::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #5cafff;
+    left: 10px;
+    top: 4px;
+    border-radius: 50px;
+}
+
+.legendFechaActual {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendFechaActual::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #a79ed1;
+    left: 10px;
+    top: 4px;
+    border-radius: 50px;
+}
+
+
+/******************************/
+.cabecera {
+    //color: #a79ed1;
+    color:black;
+    background: #ffffff;
+    height: 0px !important;
+    font-size: 14px;
+}
+
+.cabeceraSD {
+    color:  #FF0000!important;
+    background: #ffffff;
+    height: 0px !important;
+    font-size: 14px;
+}
+
+
+/* .cardMedio {
+    display: block !important;
+    background: #f2f2f2;
+} */
+.cardMedio {
+    display: block !important;
+    background: #fff;
+}
+.contentImg {
+    background: white;
+}
+.contentImg_2 {
+    background:  #ececec;
+}
+.contentLetra {
+    background: white;
+    position: relative;
+    font-size: 13px;
+}
+.contentLetra_2 {
+    background: #ececec;
+    position: relative;
+    font-size: 13px;
+}
+.contentLetra_2{
+    background: #ececec;
+    position: relative;
+    font-size: 13px;
+}
+
+.contentLetra>span {
+    color: #4f4881;
+    font-weight: bold;
+    padding: 5px;
+}
+.contentDatos {
+    padding: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.contentDatosDetalle {
+    width: 100%;
+    height: 100%;
+    background: white;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    vertical-align: middle;
+}
+.contentDatosDetalle_2 {
+    width: 100%;
+    height: 100%;
+    background: #ececec;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    vertical-align: middle;
+}
+
+.contentDetTitu {
+    width: 100%;
+    height: 50%;
+    line-height: 32px;
+    font-size: 12px;
+   /*  padding-left: 10px; */
+    font-weight: 500;
+}
+
+.contentDetTituSub {
+    width: 100%;
+    height: 50%;
+    line-height: 20px;
+    font-size: 12px;
+   /*  padding-left: 10px; */
+}
+
+.contentDias {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* text-align: center;
+    color: white; */
+    font-weight: bold;
+    font-size: 11px;
+    text-align: end;
+    color: #0e0e0e;
+    padding-right: 10px!important;
+    overflow-y: hidden; /*vdcp*/
+}
+
+
+.contentDias::-webkit-scrollbar {
+    width: 4px;
+    /* Tamaño del scroll en vertical */
+    height: 4px;
+    /* Tamaño del scroll en horizontal */
+    /* Ocultar scroll */
+}
+
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.contentDias::-webkit-scrollbar-thumb {
+    background: #443b6f;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.contentDias::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.contentDias::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+
+.diaLaborable {
+    background: #eeebff;
+    border: 2px solid #a79ed1;
+}
+
+.diaLaborableSinAsistencia {
+    background: #f3f7fd
+}
+
+.diaFinSemana {
+    background: #f3f7fd;
+    color:  #FF0000!important;
+}
+.diaConVacaciones {
+    background: #F9C067;
+}
+
+.sinCalendario {
+    background: #dedede;
+}
+
+.hoy {
+    background: #CACFD2;
+}
+
+.conPuntero {
+    cursor: pointer;
+}
+
+.sinPuntero {
+    cursor: no-drop;
+}
+
+.cabezeraDias {
+    display: block;
+    padding-top: 2px;
+}
+
+.textDiaPrinOne {
+    /* font-size: 39px; */
+    font-size: 20px;
+   
+}
+
+
+
+
+.cabezeraDias>span {
+    display: block;
+}
+
+.textDiaPrincipal {
+    font-size: 25px;
+}
+
+.textHora {
+    font-size: 12px;
+}
+
+.footerDias>span {
+    display: block;
+}
+
+/* .avisoDias {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    background: #595959;
+    bottom: -15px;
+    border-radius: 20px;
+} */
+.avisoDias{
+    position: absolute;
+    width: 50%;
+    /* height: 20px; */
+    background: #595959;
+    bottom: 20px;
+}
+
+
+
+.incidente {
+    background: #f9a500;
+    color: #fff;
+    font-weight: 400;
+    height: auto;
+}
+
+.incidenteEnviado {
+    background: #595959;
+    color: #fff;
+    font-weight: 400;
+}
+
+.incidenteAprobado {
+    background: #00b050;
+    color: #fff;
+    font-weight: 400;
+}
+
+.incidenteValidado {
+    background: #2E75B6;
+    color: #fff;
+    font-weight: 400;
+}
+
+.incidenteRechazado {
+    background: #FF0000;
+}
+
+/* .letraAviso {
+    color: #fff;
+    position: relative;
+    top: 0px;
+    padding: unset;
+    margin: 0px;
+    font-size: 9px;
+    margin-top: 3px;
+} */
+
+.letraAviso{
+    color: #fff;
+    position: relative;
+    top: 0px;
+    padding: unset;
+    margin: 0px;
+    font-size: 9px;
+    margin-top: 3px;
+    text-align: center;
+}
+
+
+
+
+.acordionAnioContent {
+    //  background: #9292a0;
+    box-shadow: unset;
+    margin: 4px;
+    border-radius: 5px;
+    //height: 28px;
+    padding: 2px;
+    padding-bottom: 15px;
+}
+
+/* .acordionAnio {
+    background: #261F48 !important;
+    border-radius: 45px;
+    color: #ffffff;
+    height: 100% !important;
+} */
+.acordionAnio {
+    background: #a79ed1 !important;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    height: 45px !important;
+}
+.acordionAnio>span {
+    display: unset !important;
+}
+
+/* .acordioMes {
+    background: #8986a3;
+    color: white;
+    width: 8.13vw;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin-left: -1.4em;
+    margin-top: 0em;
+    font-size: 1em;
+} */
+.acordioMes {
+    background: #8986a3;
+    color: white;
+    width: 107%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin-left: -1.4em;
+    margin-top: 0em;
+    font-size: 1em;
+}
+.contentListInci {
+    padding: 0px;
+    margin: 0px;
+    padding-top: 11px;
+    text-align: center;
+}
+
+.detalleListInci {
+    list-style: none;
+    margin: 3px;
+    /* border-radius: 20px; */
+    padding: 1px;
+    font-size: 10px;
+}
+
+.buttonRegresar {
+    background: #261F48;
+    border-radius: 18px;
+    text-align: center;
+    width: 93%;
+    color: white;
+    left: 7px;
+    line-height: 20px;
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+.mesSelect {
+    font-weight: bold;
+}
+
+.diaPermiso {
+    background: #eeebff !important;
+}
+
+.botonPrincipal1 {
+    border-radius: 18px;
+    text-align: center;
+    width: 150px;
+    color: #ffffff;
+    border-width: thin;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: #443b6f;
+    padding: 3px;
+    margin-top: 15px;
+    margin-right: 30px;
+    cursor: pointer;
+    height: 33px;
+    outline: none;
+}
+
+/* .contentDatos{
+    padding: 0 5vh;
+    
+} */
+/* .subtitulo {
+    height: 50px;
+    padding: 20px 10px;
+    margin-left: 30px;
+    font-size: 30px;
+    color: #443b6f;
+    font-weight: bold;
+    
+} */
+
+//===================responsive==============
+/* @media (max-width: 1400px) {
+    .textDiaPrincipal {
+        font-size: 20px;
+    }
+    .detalleListInci {
+        font-size: 8px;
+    }
+    .textDiaPrinOne {
+        font-size: 25px;
+    }
+    .textHora {
+        font-size: 9px;
+    }
+    .contentListInci {
+        padding: 1px;
+    }
+} */
+
+.content-anual{
+    background: #ececec;
+    border-radius: 10px;
+    height: 45px;
+}
+
+.content-anual_2{
+    background: #a79ed1;
+    border-radius: 10px;
+    height: 45px;
+}
+.marco1{
+    border: 3px solid #627ddc;
+    background-color: #627ddc;
+    border-radius: 44px;
+}   
+.marco2{
+    border: 3px solid #39d79e;
+    background-color: #39d79e;
+    border-radius: 44px;
+}
+.tipo1{
+    
+   color: #627ddc;
+    
+}   
+.tipo2{
+    
+    color: #39d79e;
+  
+}
+
+.estado1{
+    color: green !important;
+    font-weight: bold;
+    padding: 5px;
+}
+.estado2{
+    color: red !important;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.icono-color-anual{
+    color: #5cafff!important;
+}   
+.icono-color-anual_2{
+    color: white!important;
+}    
+.text-color-anual{
+    color: #8f8f8f;
+}
+.text-ano{
+    font-size: 22px;
+    font-weight: 800;
+    color: #4a3d89;
+}
+.text-ano_2{
+    font-size: 22px;
+    font-weight: 800;
+    color: white !important;
+}
+/******************************************************/
+/* ::ng-deep  .mat-expansion-indicator::after {
+    color: #fff !important;
+} */
+
+.legendRechazado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendEnviado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendAprobado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendValidado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendRechazado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FF0000;
+    left: 10px;
+}
+
+.legendValidado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #50abfe;
+    left: 10px;
+}
+
+.legendAprobado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #39d79e;
+    left: 10px;
+}
+.legendEnviado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ada4d4;
+    left: 10px;
+}
+/*******************Scroll*************************/
+.contenedor {
+    /* background: #fff; */
+    /* padding-top: 20px;
+    padding-left: 10px; */
+    /* padding-right: 20px; */
+    position: relative;
+    display: inline-block;
+    /* width: 95vw; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 27vh;
+    /* margin-left: 20px;
+    margin-right: 20px; */
+    /* padding-bottom: 2em; */
+    margin-bottom: 5px!important;
+}
+
+.contenedor::-webkit-scrollbar {
+    width: 4px;
+    /* Tamaño del scroll en vertical */
+    height: 4px;
+    /* Tamaño del scroll en horizontal */
+    /* Ocultar scroll */
+}
+
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.contenedor::-webkit-scrollbar-thumb {
+    background: #443b6f;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.contenedor::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.contenedor::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+.contenedor>div {
+    /*  width: 20%;
+    display: inline-block !important; */
+    padding: 5px 5px;
+}

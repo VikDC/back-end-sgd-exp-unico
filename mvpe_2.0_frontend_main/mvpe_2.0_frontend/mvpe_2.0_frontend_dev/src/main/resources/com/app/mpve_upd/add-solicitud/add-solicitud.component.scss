@@ -1,0 +1,871 @@
+.imgPersonaDetalle {
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px;
+    /* width: 75%;
+    height: 83%; */
+    /* left: 12%; */
+    position: relative;
+    top: 6%;
+}
+.estado1{
+    color: green !important;
+    font-weight: bold;
+    padding: 5px;
+}
+.estado2{
+    color: red !important;
+    font-weight: bold;
+    padding: 5px;
+}
+.marco1{
+    border: 3px solid #627ddc;
+    background-color: #627ddc;
+    border-radius: 44px;
+}
+.marco2{
+    border: 3px solid #39d79e;
+    background-color: #39d79e;
+    border-radius: 44px;
+}
+.tipo1{
+
+    color: #627ddc;
+
+ }
+ .tipo2{
+
+     color: #39d79e;
+
+ }
+.botonVolver-asistencia {
+    background-color: #fff;
+    border: none;
+    color: #4a3d89;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 3px;
+    outline: none;
+    text-align: center;
+    width: 250px;
+}
+
+.hoy {
+    background: blue;
+}
+
+.botonNuevoAviso {
+    width: 90%;
+    height: 20px;
+    background: #595959;
+    bottom: -15px;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.contenedorAsistencia {
+    position: relative;
+    overflow-x: scroll;
+}
+
+.diaActual {
+    background: #ffffff;
+    width: 150px;
+}
+
+.nuevaSolicitud {
+    background: #261F48 !important;
+}
+
+.legendEnviado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendEnviado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #595959;
+    left: 10px;
+}
+
+.legendAprobado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendAprobado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #00b050;
+    left: 10px;
+}
+
+.legendIncidencia {
+    position: relative;
+    padding-left: 12px;
+}
+
+.legendIncidencia::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #be415f;
+    left: 1px;
+    border-radius: 1px;
+    margin-top: 3px;
+}
+
+.legendValidado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendValidado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #2E75B6;
+    left: 10px;
+}
+
+.legendRechazado {
+    position: relative;
+    padding-left: 27px;
+    font-size: 12px;
+    padding-left: 22px;
+    font-weight: 400;
+}
+
+.legendRechazado::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FF0000;
+    left: 10px;
+}
+
+.cabecera {
+    color: white;
+    background: #4f4881;
+    height: 0px !important;
+    font-size: 8px;
+}
+
+.cardMedio {
+    display: block !important;
+    background: #f2f2f2;
+}
+
+.contentImg {
+    background: white;
+}
+
+.contentLetra {
+    background: white;
+    position: relative;
+    font-size: 13px;
+}
+.contentLetra_2 {
+    background: #ececec;
+    position: relative;
+    font-size: 13px;
+}
+.contentLetra>span {
+    /* padding-left: 10px; */
+    color: #4f4881;
+    font-weight: 200;
+}
+
+.contentDatos {
+    padding: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+
+.contentDatosDetalle {
+    width: 100%;
+    height: 100%;
+    background: white;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    vertical-align: middle;
+}
+
+.contentDatosDetalle_2 {
+    width: 100%;
+    height: 100%;
+    background: #ececec;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    vertical-align: middle;
+}
+.contentDetTitu {
+    width: 100%;
+    height: 50%;
+    line-height: 32px;
+    font-size: 12px;
+    /* padding-left: 10px; */
+    font-weight: 500;
+}
+
+.contentDetTituSub {
+    width: 100%;
+    height: 50%;
+    line-height: 20px;
+    font-size: 12px;
+    /* padding-left: 10px; */
+}
+
+.contentDias {
+    position: relative;
+    text-align: center;
+    color: #7165a9;
+    font-weight: 500;
+    font-size: 11px;
+    overflow: hidden;
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.diaLaborable {
+    background: #f3f7fd;
+    width: 150px;
+
+    border: 2px solid #7165a9;
+}
+
+.diaFinSemana {
+    background: #9392A0;
+}
+
+.sinCalendario {
+    background: #DFDFE1;
+}
+
+.cabezeraDias {
+    display: block;
+    padding-top: 10px;
+}
+
+.textDiaPrinOne {
+    font-size: 30px;
+    padding: 0.2em;
+    color: #000;
+}
+
+.minutero {
+    position: absolute;
+    right: 14px;
+    top: 5px;
+    font-size: 15px;
+    color: #7165a9;
+    margin-bottom: 2px;
+}
+
+.cabezeraDias>span {
+    display: block;
+    line-height: 1.5em;
+    // margin-bottom: 5vh;
+}
+
+.textDiaPrincipal {
+    font-size: 25px;
+}
+
+.textHora {
+    font-size: 12px;
+}
+
+.footerDias>span {
+    display: block;
+}
+
+.avisoDias {
+    position: absolute;
+    width: 100%;
+    height: 33px;
+    background: #595959;
+    bottom: -2px;
+    /* border-radius: 5px; */
+    text-align: center;
+}
+
+.avisoDias:hover {
+    transition-duration: 0.4s;
+    border-radius: unset;
+}
+
+.incidente {
+    background: #f9a500;
+    font-weight: 500;
+    width: 80%;
+    margin: 10%;
+    line-height: 14px;
+}
+
+.incidenteEnviado {
+    background: #595959;
+    font-weight: 500;
+    width: 80%;
+    margin: 10%;
+    line-height: 14px;
+}
+
+.incidenteAprobado {
+    background: #00b050;
+    font-weight: 500;
+    width: 80%;
+    margin: 10%;
+    line-height: 14px;
+}
+
+.incidenteValidado {
+    background: #2E75B6;
+    font-weight: 500;
+    width: 80%;
+    margin: 10%;
+    line-height: 14px;
+}
+
+.incidenteRechazado {
+    background: #FF0000;
+}
+
+.letraAviso {
+    color: #fff;
+    position: relative;
+    top: 0px;
+    padding: unset;
+    margin: 0px;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+.acordionAnioContent {
+    background: #9292a0;
+    box-shadow: unset;
+    margin: 4px;
+    border-radius: 5px;
+    //height: 28px;
+    padding: 2px;
+}
+
+.acordionAnio {
+    background: #261F48 !important;
+    border-radius: 45px;
+    color: white;
+    height: 100% !important;
+}
+
+.acordionAnio>span {
+    display: unset !important;
+}
+
+.acordioMes {
+    background: #9292a0;
+    color: white;
+    width: 136%;
+}
+
+.contentListInci {
+    padding: 0px;
+    margin: 0px;
+    padding-top: 11px;
+    text-align: center;
+}
+
+.detalleListInci {
+    list-style: none;
+    margin: 3px;
+    border-radius: 20px;
+    padding: 1px;
+    font-size: 10px;
+}
+
+.seleccionado {
+    background: #eeebff;
+}
+
+.buttonRegresar {
+    background: #261F48;
+    border-radius: 18px;
+    text-align: center;
+    width: 93%;
+    color: white;
+    left: 7px;
+    line-height: 20px;
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+.botonBasico {
+    border-radius: 18px;
+    /*  width: 180px; */
+    text-align: center;
+    color: #443b6f;
+    font-weight: bold;
+    border-color: #443b6f;
+    border-width: thin;
+    font-size: 100%;
+    padding: 3px;
+    border: 1px solid #443b6f;
+    cursor: pointer;
+}
+
+/* .labelJusti {
+    color: #3b3265;
+    position: relative;
+    padding-top: 1em;
+    margin: 0px;
+} */
+
+.buttonFile {
+    width: 40px;
+    ;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.botonPrincipal {
+    border-radius: 13px;
+    border: none;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #00d1ff;
+    padding: 13px;
+    cursor: pointer;
+    outline: none;
+    width: 165px;
+}
+/* .botonCancelar {
+    border-radius: 13px;
+    border: none;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: red;
+    padding: 13px;
+    cursor: pointer;
+    outline: none;
+    width: 165px;
+} */
+.divDescargas {
+    background: grey;
+    border: 2px;
+    border: 1px solid black;
+    position: relative
+}
+
+.btnDescarga {
+    position: absolute;
+    color: #443b6f;
+    right: 0px;
+    bottom: 0px;
+    cursor: pointer;
+}
+
+.labelJusti {
+    color: #4b3d89!important;
+    font-size: 13px!important;
+    font-weight: bold!important;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+.texto-documento-susten{
+    color: #4b3d89!important;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.tarjeta {
+    position: relative;
+    width: 90%;
+    height: 100px;
+    border-radius: 15px;
+    background: white;
+    box-shadow:none;
+    margin: 8px auto;
+    border-radius: 10px
+}
+
+.tarjeta1 {
+    background: white;
+}
+
+.tarjeta2 {
+    background: grey;
+    color: white;
+}
+
+.tarjeta3 {
+    background: #00b050;
+    color: white;
+}
+
+.contenedorImagen {
+    height: 100%;
+    width: 70px;
+    text-align: center;
+    justify-content: center;
+    margin: 5px;
+}
+
+.imagen {
+    width: 60px;
+    height: 60px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #4a418a;
+    /* position: absolute; */
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen>span {
+    position: absolute;
+}
+
+/* .tarjetaActiva {
+    border-radius: 0px;
+    background: #9EC5E2;
+}
+
+.tarjetaActiva .imagen {
+    background: #262D40;
+}
+
+.tarjetaActiva .textLetra {
+    font-weight: bold;
+    margin-right: 21px;
+} */
+
+.descripcionAprobador {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.estadoMostrar {
+    font-size: 13px;
+    /* position: absolute; */
+   /*  color: #342F66;
+    right: 4px;
+    bottom: 4px;
+    text-transform: uppercase; */
+}
+
+.textAprobador {
+    font-size: 17px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+    color: #4a418a;
+
+}
+
+.textRRHH {
+    font-size: 17px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+    color: #4a418a;
+}
+
+.enEspera {
+    position: absolute;
+    font-size: 10px;
+    color: white;
+    text-shadow: 0px 0px 5px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.botones {
+    position: relative;
+    align-items: center;
+    margin-left: 5px;
+    ;
+}
+
+.estadosSolicitud {
+    padding: 0px 40px;
+}
+
+.titulo {
+    font-weight: 600;
+    line-height: 1.5em;
+    color: #707070;
+    font-size: 12px;
+    padding: 10px 0;
+}
+/*
+.detelleTitulo {
+    font-weight: 100;
+    line-height: 1.5em;
+} */
+.detalleTitulo {
+    line-height: 1.5em;
+    border-bottom: 1px solid #c4c4c4;
+}
+.textoDetalle {
+    text-align: justify;
+    margin-bottom: 2px;
+}
+
+.cargarArchivo {
+    position: relative;
+}
+
+.nuevaSolicitud1 {
+    position: relative;
+}
+
+.contenedorSolicitud {
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    min-height: 100vh;
+    margin-bottom: 2rem;
+    background: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    min-height: 95vh;
+    padding-bottom: 8vh;
+    padding-top: 3vh;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+}
+
+.contenedorSustento {
+    position: relative;
+    background: #e5e5e5;
+    border: 2px;
+    border: 6px solid white;
+    align-items: center;
+    height: 175px;
+    border-radius: 15px;
+}
+
+.contenedorSustentoDownload {
+    position: relative;
+    background: #e5e5e5;
+    border: 2px;
+    //border: 6px solid white;
+    align-items: center;
+    height: 175px;
+    border-radius: 15px;
+    margin: 0px 10px 0px 0px;
+}
+
+.btnEliminar {
+    color: #4a3d89;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+}
+
+.nombreArchivoSustento {
+    position: absolute;
+    font-size: 10px;
+    color: #000;
+    padding-left: 2px;
+    padding-top: 2px;
+    bottom: 0px;
+    right: 0px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    word-break: break-all;
+    
+}
+
+.nombreArchivoSustentoDownload {
+    position: absolute;
+    font-size: 9px;
+    color: #000;
+    padding-left: 2px;
+    padding-top: 2px;
+    bottom: 20px;
+    right: 0px;
+    display: block;
+    width: 100%;
+  
+}
+
+.empleado-cargo{
+    font-size: 9px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.button-subir-sustento{
+    background-color: #fff;
+    border: solid 2px;
+    border-color: #71dfa3;
+    border-radius: 13px;
+    text-align: center;
+    width: 150px;
+    color: #71dfa3;
+    /* border-width: thin; */
+    font-weight: bold;
+    font-size: 15px;
+    padding: 13px;
+    cursor: pointer;
+    outline: none;
+    height: 41px;
+    padding: 5px;
+}
+
+.puntos {
+  position: absolute;
+  font-size: 9px;
+  color: #000;
+  padding-left: 2px;
+  padding-top: 2px;
+  bottom: 20px;
+  right: 4px;
+  display: block;
+  width: 90%;
+  text-align: center;
+  word-break: break-all;
+}
+
+/*******************Scroll*************************/
+.contenedor {
+    /* background: #fff; */
+    /* padding-top: 20px;
+    padding-left: 10px; */
+    /* padding-right: 20px; */
+    position: relative;
+    display: inline-block;
+    /* width: 95vw; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 27vh;
+    /* margin-left: 20px;
+    margin-right: 20px; */
+    /* padding-bottom: 2em; */
+    margin-bottom: 5px!important;
+}
+
+.contenedor::-webkit-scrollbar {
+    width: 4px;
+    /* Tamaño del scroll en vertical */
+    height: 4px;
+    /* Tamaño del scroll en horizontal */
+    /* Ocultar scroll */
+}
+
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.contenedor::-webkit-scrollbar-thumb {
+    background: #443b6f;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.contenedor::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.contenedor::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+.contenedor>div {
+    /*  width: 20%;
+    display: inline-block !important; */
+    padding: 5px 5px;
+}
+
+
+//===================responsive==============
+
+.contenedorMarcaciones {
+    width: 12em;
+    height: 6em;
+    line-height: 2em;
+    border: none;
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.contenedorMarcaciones::-webkit-scrollbar {
+    width: 4px;
+    /* Tamaño del scroll en vertical */
+    height: 4px;
+    /* Tamaño del scroll en horizontal */
+    /* Ocultar scroll */
+}
+
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+
+.contenedorMarcaciones::-webkit-scrollbar-thumb {
+    background: #443b6f;
+    border-radius: 4px;
+}
+
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+
+.contenedorMarcaciones::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Cambiamos el fondo cuando esté en active */
+
+.contenedorMarcaciones::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
